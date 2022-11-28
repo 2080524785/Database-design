@@ -1,2 +1,2 @@
-# java-design
-java课设
+# Database-design
+数据库课设
