@@ -18,7 +18,6 @@ public class MainController {
 
     @GetMapping
     public List<Book> getAll() {
-        List<Book> bookList = bookService.getAll();
-        return bookList;
+        return bookService.getAll();
     }
 }

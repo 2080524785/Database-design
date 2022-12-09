@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface BookDao {
 
-    @Select("select name,count(*) from Book_info group by name")
+    @Select("select * from Book_info;")
     public List<Book> getAll();
 }
