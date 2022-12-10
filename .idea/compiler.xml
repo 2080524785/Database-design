@@ -8,11 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Datebase-design" />
-        <module name="datebase-design" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="datebase-design" target="8" />
-    </bytecodeTargetLevel>
+    <bytecodeTargetLevel target="17" />
   </component>
 </project>
