@@ -2,12 +2,17 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="Datebase-design" />
         <module name="datebase-design" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="datebase-design" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
