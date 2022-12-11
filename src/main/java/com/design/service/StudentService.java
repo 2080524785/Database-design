@@ -1,41 +1,42 @@
 package com.design.service;
 
 import com.design.domain.Book;
+import com.design.domain.Student;
 
 import java.util.List;
 
-public interface BookService {
+public interface StudentService {
     /**
-     * 查询所有书籍记录
+     * 查询所有学生记录
      * @return
      */
-    public List<Book> getAll();
+    public List<Student> getAll();
 
     /**
      * 按照ID来查找书籍
-     * @param id
+     * @param sno
      * @return
      */
-    public Book getById(Integer id);
+    public Student getBySno(String sno);
 
     /**
      * 提供Book数据后，执行添加到数据库
-     * @param book
+     * @param student
      * @return
      */
-    public boolean insertBook(Book book);
+    public boolean insertStudent(Student student);
 
     /**
      * 更新数据库中该Book数据
-     * @param book
+     * @param student
      * @return
      */
-    public boolean updateBook(Book book);
+    public boolean updateStudent(Student student);
 
     /**
      * 按照ID来删除该书籍
-     * @param id
+     * @param sno
      * @return
      */
-    public boolean deleteById(Integer id);
+    public boolean deleteBySno(String sno);
 }

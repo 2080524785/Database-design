@@ -16,4 +16,24 @@ public class BookServiceImpl implements BookService {
     public List<Book> getAll() {
         return bookDao.getAll();
     }
+
+    @Override
+    public Book getById(Integer id) {
+        return bookDao.getById(id);
+    }
+
+    @Override
+    public boolean insertBook(Book book) {
+        return bookDao.insertBook(book)>0;
+    }
+
+    @Override
+    public boolean updateBook(Book book) {
+        return bookDao.updateBook(book)>0;
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        return bookDao.deleteById(id)>0;
+    }
 }
