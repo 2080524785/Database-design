@@ -20,7 +20,7 @@ public class BookController {
     public Result getAll() {
         List<Book> bookList = bookService.getAll();
         Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = bookList !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
+        String msg = bookList !=null? "查询全部结果成功！":"查询结果失败！";
         return new Result(code,bookList,msg);
     }
 
@@ -28,13 +28,28 @@ public class BookController {
     public Result getById(@PathVariable Integer id) {
         Book book = bookService.getById(id);
         Integer code = book !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = book !=null? "查询结果成功！":"查询结果失败！";
+        String msg = book !=null? "根据ID查询结果成功！":"查询结果失败！";
         return new Result(code,book,msg);
     }
+    @GetMapping("/search/{str}")
+    public Result getByIdF(@PathVariable String str) {
+        List<Book> bookList = bookService.getAllFuzzySearch(str);
+        Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
+        String msg = bookList !=null? "查询搜索结果成功！":"查询结果失败！";
+        return new Result(code,bookList,msg);
+    }
+
 
     @PostMapping
     public Result save(@RequestBody Book book) {
         boolean flag = bookService.insertBook(book);
+        String msg = flag? "保存结果成功！":"保存结果失败！";
+        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
+    }
+
+    @PostMapping
+    public Result saveList(@RequestBody List<Book> bookList) {
+        boolean flag = bookService.insertBookList(bookList);
         String msg = flag? "保存结果成功！":"保存结果失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
     }

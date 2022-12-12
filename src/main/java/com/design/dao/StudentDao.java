@@ -1,5 +1,6 @@
 package com.design.dao;
 
+import com.design.domain.Book;
 import com.design.domain.Student;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
@@ -23,4 +24,7 @@ public interface StudentDao {
 
     @Delete("delete from Stu_info where sno=#{sno}")
     public int deleteBySno(String sno);
+
+    @Select("SELECT * from Stu_info where name like '%#{str}%' or dep LIKE '%#{str}%' or pro LIKE '%#{str}%' or sno LIKE '%#{str}%';")
+    public List<Student> getFuzzySearch(String str);
 }

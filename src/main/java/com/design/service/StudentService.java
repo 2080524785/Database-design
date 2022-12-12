@@ -20,12 +20,18 @@ public interface StudentService {
     public Student getBySno(String sno);
 
     /**
+     * 模糊搜索
+     * @param str
+     * @return
+     */
+    public List<Student> getAllFuzzySearch(String str);
+    /**
      * 提供Book数据后，执行添加到数据库
      * @param student
      * @return
      */
     public boolean insertStudent(Student student);
-
+    public boolean insertStudentList(List<Student> studentList);
     /**
      * 更新数据库中该Book数据
      * @param student
@@ -39,4 +45,6 @@ public interface StudentService {
      * @return
      */
     public boolean deleteBySno(String sno);
+
+
 }

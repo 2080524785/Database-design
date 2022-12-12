@@ -24,7 +24,7 @@ public interface BookService {
      * @return
      */
     public boolean insertBook(Book book);
-
+    public boolean insertBookList(List<Book> bookList);
     /**
      * 更新数据库中该Book数据
      * @param book
@@ -38,4 +38,13 @@ public interface BookService {
      * @return
      */
     public boolean deleteById(Integer id);
+
+
+
+    /**
+     * 模糊搜索书名出版社和
+     * @param str
+     * @return
+     */
+    public List<Book> getAllFuzzySearch(String str);
 }

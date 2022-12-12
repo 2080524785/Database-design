@@ -2,6 +2,7 @@ package com.design.service.impl;
 
 import com.design.dao.StudentDao;
 import com.design.dao.StudentDao;
+import com.design.domain.Book;
 import com.design.domain.Student;
 import com.design.domain.Student;
 import com.design.service.StudentService;
@@ -25,6 +26,11 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getAllFuzzySearch(String str) {
+        return studentDao.getFuzzySearch(str);
+    }
+
+    @Override
     public boolean insertStudent(Student student) {
         return studentDao.insertStudent(student)>0;
     }
@@ -37,5 +43,14 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public boolean deleteBySno(String sno) {
         return studentDao.deleteBySno(sno)>0;
+    }
+
+    @Override
+    public boolean insertStudentList(List<Student> studentList) {
+        int sum=0;
+        for(Student student:studentList){
+            sum += studentDao.insertStudent(student);
+        }
+        return sum==studentList.size();
     }
 }

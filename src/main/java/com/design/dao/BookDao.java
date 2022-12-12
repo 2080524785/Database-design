@@ -13,6 +13,7 @@ public interface BookDao {
     @Select("select * from Book_info;")
     public List<Book> getAll();
 
+
     @Select("select * from Book_info where id=#{id};")
     public Book getById(Integer id);
 
@@ -24,6 +25,10 @@ public interface BookDao {
 
     @Update("update Book_info set name = #{name}, time = #{time}, pub = #{pub}, locate=#{locate} where id = #{id}")
     public int updateBook(Book book);
+
+    @Select("SELECT * from Book_info where name like '%#{str}%' or pub LIKE '%#{str}%' or locate LIKE '%#{str}%' or id LIKE '%#{str}%' or time LIKE '%#{str}%';")
+    public List<Book> getFuzzySearch(String str);
+
 
 
 }

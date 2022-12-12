@@ -21,10 +21,22 @@ public class BookServiceImpl implements BookService {
     public Book getById(Integer id) {
         return bookDao.getById(id);
     }
-
+    @Override
+    public List<Book> getAllFuzzySearch(String str) {
+        return bookDao.getFuzzySearch(str);
+    }
     @Override
     public boolean insertBook(Book book) {
         return bookDao.insertBook(book)>0;
+    }
+
+    @Override
+    public boolean insertBookList(List<Book> bookList) {
+        int sum=0;
+        for(Book book:bookList){
+            sum += bookDao.insertBook(book);
+        }
+        return sum==bookList.size();
     }
 
     @Override
@@ -36,4 +48,8 @@ public class BookServiceImpl implements BookService {
     public boolean deleteById(Integer id) {
         return bookDao.deleteById(id)>0;
     }
+
+
+
+
 }

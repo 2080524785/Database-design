@@ -21,7 +21,7 @@ public class StudentController {
     public Result getAll() {
         List<Student> studentList = studentService.getAll();
         Integer code = studentList !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = studentList !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
+        String msg = studentList !=null? "查询全部结果成功！":"查询结果失败，未找到该数据！";
         return new Result(code,studentList,msg);
     }
 
@@ -29,8 +29,15 @@ public class StudentController {
     public Result getById(@PathVariable String sno) {
         Student student = studentService.getBySno(sno);
         Integer code = student !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = student !=null? "查询结果成功！":"查询结果失败！";
+        String msg = student !=null? "根据学号查询结果成功！":"查询结果失败！";
         return new Result(code,student,msg);
+    }
+    @GetMapping("/search/{str}")
+    public Result getFuzzySearch(@PathVariable String str) {
+        List<Student> studentList = studentService.getAllFuzzySearch(str);
+        Integer code = studentList !=null? Code.GET_OK:Code.GET_ERR;
+        String msg = studentList !=null? "模糊查询结果成功！":"查询结果失败，未找到该数据！";
+        return new Result(code,studentList,msg);
     }
 
     @PostMapping
@@ -39,7 +46,12 @@ public class StudentController {
         String msg = flag? "保存结果成功！":"保存结果失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
     }
-
+    @PostMapping("/list")
+    public Result saveList(@RequestBody List<Student> studentList) {
+        boolean flag = studentService.insertStudentList(studentList);
+        String msg = flag? "保存结果成功！":"保存结果失败！";
+        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
+    }
     @PutMapping
     public Result update(@RequestBody Student student) {
         boolean flag = studentService.updateStudent(student);

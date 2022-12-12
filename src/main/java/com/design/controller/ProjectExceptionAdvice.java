@@ -2,7 +2,7 @@ package com.design.controller;
 
 import com.design.domain.Code;
 import com.design.domain.Result;
-import org.omg.CORBA.SystemException;
+
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 public class ProjectExceptionAdvice {
