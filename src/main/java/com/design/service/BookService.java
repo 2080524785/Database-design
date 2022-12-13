@@ -38,7 +38,7 @@ public interface BookService {
      * @return
      */
     public boolean deleteById(Integer id);
-
+    public boolean deleteByIdList(List<Integer> idList);
 
 
     /**

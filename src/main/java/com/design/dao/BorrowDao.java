@@ -1,5 +1,6 @@
 package com.design.dao;
 
+import com.design.domain.Book;
 import com.design.domain.Borrow;
 
 import org.apache.ibatis.annotations.Delete;
@@ -16,24 +17,18 @@ public interface BorrowDao {
 
     @Select("select * from Borrow where return_time=null;")
     public List<Borrow> getBorrow();
-
+    @Select("select SN,id,sno,borrow_time from Borrow where sno=#{sno} and return_time=null;")
+    public List<Borrow.BorrowNoReturn> getBySnoBorrow(String sno);
     @Select("select * from Borrow where return_time!=null;")
     public List<Borrow> getReturn();
 
-    @Select("select * from Borrow where SN=#{SN};")
-    public List<Borrow> getBySN(String sno);
 
-    @Select("select * from Borrow where name=#{name};")
-    public List<Borrow> getByName(String name);
+    @Select("select * from Book_info where id not exists(select id from Borrow where return_time=null)")
+    public List<Book> getAllBookNoBorrow();
 
-    @Select("select * from Borrow where sno=#{sno};")
-    public List<Borrow> getBySno(String sno);
+    @Select("SELECT * from Borrow where Borrow.sno=#{sno} and return_time is NULL and DATEDIFF(CURRENT_DATE,convert(borrow_time,date))>(SELECT limit_day from Stu_info where Stu_info.sno=Borrow.sno);")
+    public List<Borrow> getBorrowOverExcept(String sno);
 
-    @Select("select * from Borrow where id=#{id};")
-    public List<Borrow> getById(Integer id);
-
-    @Select("select * from Borrow where pub=#{pub};")
-    public List<Borrow> getById(String pub);
 
     // 删除记录 基本不使用
     @Delete("delete from Borrow where SN=#{SN};")
@@ -45,9 +40,12 @@ public interface BorrowDao {
     @Update("update Borrow set name = #{name}, time = #{time}, pub = #{pub}, locate=#{locate} where SN = #{SN}")
     public int updateBorrow(Borrow borrow);
 
-    @Select("select count(*) num from Borrow group by (name,pub)")
-    public int getAllGroupByNamePub();
+    @Select("select * from Book_num")
+    public List<Book.BookNum> getAllGroupByNamePub();
 
-    @Select("select count(*) num from Borrow group by (name,pub) having (name,pub)=(#{name},#{pub})")
-    public int getByNameGroupByNamePub(String name,String pub);
+    @Select("select * from Book_num where (name,pub)=(#{name},#{pub})")
+    public Book.BookNum getNumGroupByNamePub(String name, String pub);
+
+
+
 }

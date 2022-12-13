@@ -1,6 +1,8 @@
 package com.design.service.impl;
 
+import com.design.dao.BookDao;
 import com.design.dao.BorrowDao;
+import com.design.domain.Book;
 import com.design.domain.Borrow;
 import com.design.service.BorrowService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Autowired
     private BorrowDao borrowDao;
+
+
     @Override
     public List<Borrow> getAll() {
         return borrowDao.getAll();
@@ -26,4 +30,21 @@ public class BorrowServiceImpl implements BorrowService {
     public List<Borrow> getReturn() {
         return borrowDao.getReturn();
     }
+
+    @Override
+    public List<Borrow> getBorrowOverExcept(String sno) {
+        return borrowDao.getBorrowOverExcept(sno);
+    }
+
+    @Override
+    public List<Borrow.BorrowNoReturn> getBySnoNoReturn(String sno) {
+        return borrowDao.getBySnoBorrow(sno);
+    }
+
+    @Override
+    public List<Book> getAllBookNoBorrow() {
+        return borrowDao.getAllBookNoBorrow();
+    }
+
+
 }

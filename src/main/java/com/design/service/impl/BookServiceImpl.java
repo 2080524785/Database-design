@@ -48,7 +48,14 @@ public class BookServiceImpl implements BookService {
     public boolean deleteById(Integer id) {
         return bookDao.deleteById(id)>0;
     }
-
+    @Override
+    public boolean deleteByIdList(List<Integer> idList) {
+        int sum=0;
+        for(Integer id:idList){
+            sum += bookDao.deleteById(id);
+        }
+        return sum==idList.size();
+    }
 
 
 

@@ -36,6 +36,15 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public boolean insertStudentList(List<Student> studentList) {
+        int sum=0;
+        for(Student student:studentList){
+            sum += studentDao.insertStudent(student);
+        }
+        return sum==studentList.size();
+    }
+
+    @Override
     public boolean updateStudent(Student Student) {
         return studentDao.updateStudent(Student)>0;
     }
@@ -44,13 +53,13 @@ public class StudentServiceImpl implements StudentService {
     public boolean deleteBySno(String sno) {
         return studentDao.deleteBySno(sno)>0;
     }
-
     @Override
-    public boolean insertStudentList(List<Student> studentList) {
+    public boolean deleteBySnoList(List<String> snoList) {
         int sum=0;
-        for(Student student:studentList){
-            sum += studentDao.insertStudent(student);
+        for(String sno:snoList){
+            sum += studentDao.deleteBySno(sno);
         }
-        return sum==studentList.size();
+        return sum==snoList.size();
     }
+
 }

@@ -45,6 +45,6 @@ public interface StudentService {
      * @return
      */
     public boolean deleteBySno(String sno);
-
+    public boolean deleteBySnoList(List<String> snoList);
 
 }
