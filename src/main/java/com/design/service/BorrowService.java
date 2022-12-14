@@ -25,7 +25,7 @@ public interface BorrowService {
      * 根据Sno获得某学生的超期未还数据
      *
      */
-    public List<Borrow> getBorrowOverExcept(String sno);
+    public List<Borrow> getBySnoBorrowOverExcept(String sno);
     /**
      * 获取某学生未归还书籍
      */
@@ -34,4 +34,13 @@ public interface BorrowService {
      * 获取未被借出的书籍清单
      */
     public List<Book> getAllBookNoBorrow();
+    /**
+     * 添加借出记录
+     */
+    public Boolean insertBorrow(Book book,String sno);
+    public Boolean insertBorrowList(List<Book> book,String sno);
+    /**
+     * 归还书籍
+     */
+    public Boolean updateReturn(Borrow.BorrowNoReturn borrowNoReturn);
 }

@@ -14,10 +14,11 @@ public class Book {
     private String locate;
 
     @Data
-    public class BookNum{
+    public static class BookNum{
         private String name;
         private String pub;
         private Timestamp time;
         private Integer num;
     }
+
 }

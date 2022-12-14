@@ -6,10 +6,7 @@ import com.design.service.BorrowService;
 import com.design.service.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.Collections;
@@ -52,7 +49,7 @@ public class BorrowController {
     @GetMapping("/{sno}")
     public Result getStudent(@PathVariable String sno){
         Student student = studentService.getBySno(sno);
-        List<Borrow> borrowList = borrowService.getBorrowOverExcept(sno);
+        List<Borrow> borrowList = borrowService.getBySnoBorrowOverExcept(sno);
         List<Book> bookList = borrowService.getAllBookNoBorrow();
         Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
@@ -70,10 +67,21 @@ public class BorrowController {
         return new Result(code,jsonObject,msg);
     }
 
-    @GetMapping("/{sno}/bor")
-    public Result StudentBorrow(@PathVariable String sno) {
-        return null;
-
-
+    @PostMapping("/{sno}/bor/list")
+    public Result StudentBorrow(@RequestBody List<Book> bookList, @PathVariable String sno) {
+        Boolean flag = borrowService.insertBorrowList(bookList, sno);
+        String msg = flag? "保存结果成功！":"保存结果失败！";
+        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
     }
+    @PostMapping("/{sno}/bor")
+    public Result StudentBorrow(@RequestBody Book book, @PathVariable String sno) {
+        Boolean flag = borrowService.insertBorrow(book, sno);
+        String msg = flag? "保存结果成功！":"保存结果失败！";
+        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
+    }
+    @PutMapping("/{sno}/ret")
+    public Result StudentReturn(@RequestBody Borrow borrow){
+    return  null;
+    }
+
 }

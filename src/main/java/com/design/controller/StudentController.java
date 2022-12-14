@@ -71,7 +71,7 @@ public class StudentController {
     }
     // 按照学号列表删除学生
     @DeleteMapping("/list")
-    public Result delete(List<String> snoList) {
+    public Result delete(@RequestBody List<String> snoList) {
         boolean flag = studentService.deleteBySnoList(snoList);
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
