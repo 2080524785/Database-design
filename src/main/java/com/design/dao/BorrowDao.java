@@ -27,17 +27,18 @@ public interface BorrowDao {
     public List<Book> getAllBookNoBorrow();
 
     @Select("SELECT * from Borrow where Borrow.sno=#{sno} and return_time is NULL and DATEDIFF(CURRENT_DATE,convert(borrow_time,date))>(SELECT limit_day from Stu_info where Stu_info.sno=Borrow.sno);")
-    public List<Borrow> getBorrowOverExcept(String sno);
+    public List<Borrow> getBySnoBorrowOverExcept(String sno);
 
+    @Insert("insert into Borrow (id,sno,borrow_time) values(#{id},#{sno},#{borrow_time})")
+    public int insertBorrow(Borrow.BorrowNoReturn borrowNoReturn);
 
     // 删除记录 基本不使用
     @Delete("delete from Borrow where SN=#{SN};")
     public int deleteBySN(Integer SN);
 
-    @Insert("insert into Borrow (id,sno,borrow_time) values(#{id},#{sno},#{borrow_time})")
-    public int insertBorrow(Borrow.BorrowNoReturn borrowNoReturn);
 
-    @Update("update Borrow set name = #{name}, time = #{time}, pub = #{pub}, locate=#{locate} where SN = #{SN}")
+
+    @Update("update Borrow set return_time=#{return_time}, fine=#{fine} where SN = #{SN}")
     public int updateBorrow(Borrow borrow);
 
     @Select("select * from Book_num")

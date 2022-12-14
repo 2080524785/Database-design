@@ -67,11 +67,7 @@
             <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
-        </dependency>
+
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
@@ -81,9 +77,20 @@
 
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.0</version>
         </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+
 
         <!-- https://mvnrepository.com/artifact/org.apache.tomcat/tomcat-jsp-api -->
 
@@ -103,9 +110,6 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.1</version>
                 <configuration>
-                    <!-- 使用tomcat9部署应用 此处的server标签中的值与第二步maven配置文件中的id值一致-->
-                    <server>tomcat9</server>
-                    <update>true</update>
                     <port>80</port>
                     <path>/</path>
                     <uriEncoding>UTF-8</uriEncoding>
