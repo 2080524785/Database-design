@@ -20,7 +20,7 @@ public class BookController {
     public Result getAll() {
         List<Book> bookList = bookService.getAll();
         Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = bookList !=null? "查询全部结果成功！":"查询结果失败！";
+        String msg = bookList !=null? "查询全部结果成功!":"查询结果失败！";
         return new Result(code,bookList,msg);
     }
     // 按照ID查找书籍信息
@@ -70,7 +70,7 @@ public class BookController {
     }
 //    按照ID列表删除书籍
     @DeleteMapping("/list")
-    public Result delete(List<Integer> idList) {
+    public Result delete(@RequestBody List<Integer> idList) {
         boolean flag = bookService.deleteByIdList(idList);
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);

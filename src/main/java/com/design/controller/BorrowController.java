@@ -6,10 +6,7 @@ import com.design.service.BorrowService;
 import com.design.service.StudentService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.Collections;
@@ -71,7 +68,7 @@ public class BorrowController {
     }
 
     @GetMapping("/{sno}/bor")
-    public Result StudentBorrow(@PathVariable String sno) {
+    public Result StudentBorrow(@PathVariable String sno, @RequestBody List<Book> bookList) {
         return null;
 
 

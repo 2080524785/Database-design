@@ -34,8 +34,8 @@ public interface BorrowDao {
     @Delete("delete from Borrow where SN=#{SN};")
     public int deleteBySN(Integer SN);
 
-    @Insert("insert into Borrow (name,time,pub,locate) values(#{name},#{time},#{pub},#{locate})")
-    public int insertBorrow(Borrow borrow);
+    @Insert("insert into Borrow (id,sno,borrow_time) values(#{id},#{sno},#{borrow_time})")
+    public int insertBorrow(Borrow.BorrowNoReturn borrowNoReturn);
 
     @Update("update Borrow set name = #{name}, time = #{time}, pub = #{pub}, locate=#{locate} where SN = #{SN}")
     public int updateBorrow(Borrow borrow);

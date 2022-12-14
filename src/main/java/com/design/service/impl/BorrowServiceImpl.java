@@ -46,5 +46,20 @@ public class BorrowServiceImpl implements BorrowService {
         return borrowDao.getAllBookNoBorrow();
     }
 
+    @Override
+    public Boolean insertBorrow(Book book, String sno) {
+        return null;
+    }
+
+//    @Override
+//    public Boolean insertBorrow(Book book, String sno) {
+//        return borrowDao.insertBorrow();
+//    }
+
+    @Override
+    public Boolean insertBorrowList(List<Book> book, String sno) {
+        return null;
+    }
+
 
 }

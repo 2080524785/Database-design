@@ -20,4 +20,5 @@ public class Book {
         private Timestamp time;
         private Integer num;
     }
+
 }

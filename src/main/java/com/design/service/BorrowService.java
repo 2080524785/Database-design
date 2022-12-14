@@ -34,4 +34,9 @@ public interface BorrowService {
      * 获取未被借出的书籍清单
      */
     public List<Book> getAllBookNoBorrow();
+    /**
+     * 添加借出记录
+     */
+    public Boolean insertBorrow(Book book,String sno);
+    public Boolean insertBorrowList(List<Book> book,String sno);
 }
