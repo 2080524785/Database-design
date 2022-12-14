@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/book")
@@ -16,8 +17,8 @@ public class BookController {
     private BookService bookService;
 
     // 展示全部书籍信息
-    @GetMapping
-    public Result getAll() {
+    @GetMapping("/page")
+    public Result getAll(@PathVariable Map<String,String> data) {
         List<Book> bookList = bookService.getAll();
         Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
         String msg = bookList !=null? "查询全部结果成功!":"查询结果失败！";

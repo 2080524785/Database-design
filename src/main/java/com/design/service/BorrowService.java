@@ -2,6 +2,7 @@ package com.design.service;
 
 import com.design.domain.Book;
 import com.design.domain.Borrow;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,4 +44,12 @@ public interface BorrowService {
      * 归还书籍
      */
     public Boolean updateReturn(Borrow.BorrowNoReturn borrowNoReturn);
+    public Boolean updateReturnList(List<Borrow.BorrowNoReturn> borrowNoReturn);
+    /**
+     * 续借书籍
+     */
+    @Transactional
+    public Boolean reBorrowBook(Borrow.BorrowNoReturn borrowNoReturn);
+    @Transactional
+    public Boolean reBorrowBookList(List<Borrow.BorrowNoReturn> borrowNoReturnList);
 }
