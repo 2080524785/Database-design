@@ -1,10 +1,12 @@
 package com.design.domain;
 
+import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 
@@ -52,5 +54,15 @@ public class Borrow {
         this.id = id;
         this.sno = sno;
         this.borrow_time = borrow_time;
+    }
+    public Borrow(JSONObject query){
+
+        if(!query.isEmpty()){
+            this.SN=query.containsKey("SN")? query.getInteger("SN") :null;
+            this.id=query.containsKey("id")? query.getInteger("id") :null;
+            this.sno=query.containsKey("sno")? query.getString("sno") :null;
+            this.borrow_time=query.containsKey("borrow_time")? new Timestamp(query.getDate("borrow_time").getTime()) :null;
+            this.return_time=query.containsKey("return_time")? new Timestamp(query.getDate("return_time").getTime()) :null;
+        }
     }
 }

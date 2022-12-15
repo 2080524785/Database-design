@@ -1,5 +1,7 @@
 package com.design.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.design.dao.BookDao;
 import com.design.dao.BorrowDao;
 import com.design.dao.StudentDao;
@@ -25,8 +27,8 @@ public class BorrowServiceImpl implements BorrowService {
     private BookDao bookDao;
 
     @Override
-    public List<Borrow> getAll() {
-        return borrowDao.getAll();
+    public List<Borrow> getAll(JSONObject query) {
+        return borrowDao.getAll(new Borrow(query));
     }
 
     @Override

@@ -7,6 +7,8 @@ import com.design.service.BorrowService;
 import com.design.service.StudentService;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/borrow")
@@ -25,12 +28,21 @@ public class BorrowController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping
-    public Result getAll(){
-        List<Borrow> borrowList = borrowService.getAll();
+    @GetMapping("/page")
+    public Result getAll(@RequestBody Map<String,JSONObject> param){
+        JSONObject page=param.get("page");
+        JSONObject sort=param.get("order");
+        PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"),sort.isEmpty()?"":sort.getString("orderProp")+" "+sort.getString("orderAsc"));
+        List<Borrow> borrowList = borrowService.getAll(param.get("query"));
+        PageInfo<Borrow> borrowPageInfo = new PageInfo<>(borrowList);
         Integer code = borrowList!=null? Code.GET_OK:Code.GET_ERR;
         String msg = borrowList !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
-        return new Result(code,borrowList,msg);
+        JSONObject data = new JSONObject();
+        data.put("records",borrowPageInfo.getList());
+        data.put("currentPage",borrowPageInfo.getPageNum());
+        data.put("pageSize",borrowPageInfo.getPageSize());
+        data.put("total",borrowPageInfo.getTotal());
+        return new Result(code,data,msg);
     }
 
     @GetMapping("/noreturn")

@@ -1,5 +1,6 @@
 package com.design.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.design.domain.Book;
 import com.design.domain.Borrow;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +12,7 @@ public interface BorrowService {
      * 获得所有图书借阅记录
      * @return
      */
-    public List<Borrow> getAll();
+    public List<Borrow> getAll(JSONObject query);
     /**
      * 获得所有借出但并未归还图书借阅记录
      * @return

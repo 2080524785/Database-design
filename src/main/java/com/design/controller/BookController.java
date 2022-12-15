@@ -10,6 +10,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +21,7 @@ public class BookController {
     private BookService bookService;
 
     // 展示全部书籍信息
-    @GetMapping("/page")
+    @PostMapping("/page")
     public Result getAll(@RequestBody Map<String, JSONObject> param) {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
@@ -55,7 +56,7 @@ public class BookController {
     }
 
 //    修改传递的书籍信息
-    @PutMapping("update")
+    @PostMapping("update")
     public Result update(@RequestBody Book book) {
         boolean flag = bookService.updateBook(book);
         String msg = flag? "更新结果成功！":"更新结果失败！";
@@ -69,8 +70,16 @@ public class BookController {
 //        return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
 //    }
 //    按照ID列表删除书籍
-    @DeleteMapping("/delete")
-    public Result delete(@RequestBody List<Integer> idList) {
+    @PostMapping("/delete")
+    public Result delete(@RequestBody Map<String,Integer> param) {
+        Integer id = param.get("id");
+        boolean flag = bookService.deleteById(id);
+        String msg = flag? "删除结果成功！":"删除结果失败！";
+        return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
+    }
+    @PostMapping("/deletelist")
+    public Result deleteList(@RequestBody Map<String,List<Integer>> param) {
+        List<Integer> idList = param.get("ids");
         boolean flag = bookService.deleteByIdList(idList);
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
