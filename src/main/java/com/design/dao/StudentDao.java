@@ -13,8 +13,16 @@ public interface StudentDao {
     @Select("select * from Stu_info where sno=#{sno}")
     public Student getBySno(String Sno);
 
-    @Select("select * from Stu_info")
-    public List<Student> getAll();
+    @Select({" <script>" +
+            " SELECT * FROM Stu_info " +
+            " <where> 1=1 " +
+            " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
+            " <if test=\"  pub!=null \" >  AND dep LIKE concat('%',#{dep},'%')</if> " +
+            " <if test=\"  pub!=null \" >  AND pro LIKE concat('%',#{pro},'%')</if> " +
+            " </where>" +
+            " </script>"
+    })
+    public List<Student> getAll(Student student);
 
     @Update("update Stu_info set name=#{name}, dep=#{dep}, pro=#{pro} where sno=#{sno}")
     public int updateStudent(Student student);

@@ -1,5 +1,7 @@
 package com.design.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.design.dao.BookDao;
 import com.design.domain.Book;
 import com.design.service.BookService;
@@ -13,14 +15,12 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookDao bookDao;
 
-    public List<Book> getAll() {
-        return bookDao.getAll();
+    public List<Book> getAll(JSONObject query) {
+        Book book = new Book(query);
+        return bookDao.getAll(book);
     }
 
-    @Override
-    public Book getById(Integer id) {
-        return bookDao.getById(id);
-    }
+
     @Override
     public List<Book> getAllFuzzySearch(String str) {
         return bookDao.getFuzzySearch(str);

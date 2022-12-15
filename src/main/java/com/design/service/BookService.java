@@ -1,5 +1,6 @@
 package com.design.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.design.domain.Book;
 
 import java.util.List;
@@ -9,14 +10,9 @@ public interface BookService {
      * 查询所有书籍记录
      * @return
      */
-    public List<Book> getAll();
+    public List<Book> getAll(JSONObject query);
 
-    /**
-     * 按照ID来查找书籍
-     * @param id
-     * @return
-     */
-    public Book getById(Integer id);
+
 
     /**
      * 提供Book数据后，执行添加到数据库

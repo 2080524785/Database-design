@@ -1,5 +1,6 @@
 package com.design.service;
 
+import com.alibaba.fastjson.JSONObject;
 import com.design.domain.Book;
 import com.design.domain.Student;
 
@@ -10,7 +11,7 @@ public interface StudentService {
      * 查询所有学生记录
      * @return
      */
-    public List<Student> getAll();
+    public List<Student> getAll(JSONObject query);
 
     /**
      * 按照ID来查找书籍

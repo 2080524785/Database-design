@@ -12,7 +12,18 @@ import java.util.List;
 
 public interface BorrowDao {
 
-    @Select("select * from Borrow;")
+    @Select({" <script>" +
+            " SELECT * FROM Book_info " +
+            " <where> 1=1 " +
+            " <if test=\" sno !=null  \" >  AND sno =#{sno}</if> " +
+            " <if test=\" name !=null \" >  AND name =#{name}</if> " +
+            " <if test=\"  dep!=null \" >  AND dep =#{dep}</if> " +
+            " <if test=\"  pro!=null \" >  AND pro =#{pro}</if> " +
+            " </where>" +
+            " <if test=\"  pro!=null \" >  AND pro =#{pro}</if> " +
+            "order by tb_car.id ASC"+
+            " </script>"
+    })
     public List<Borrow> getAll();
 
     @Select("select * from Borrow where return_time=null;")
