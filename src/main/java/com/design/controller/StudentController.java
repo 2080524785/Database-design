@@ -43,8 +43,8 @@ public class StudentController {
     public Result getBySno(@RequestParam("id") String sno) {
         Student student = studentService.getBySno(sno);
         Integer code = student !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = student !=null? "存在该学生！":"不存在该学生！";
-        return new Result(code,null,msg);
+        Boolean data = student != null;
+        return new Result(code,data,"查询成功");
     }
 //    // 模糊搜索 学号 系别 专业 等信息
 //    @GetMapping("/search/{str}")
