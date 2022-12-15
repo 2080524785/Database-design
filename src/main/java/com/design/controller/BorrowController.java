@@ -1,13 +1,16 @@
 package com.design.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.design.domain.*;
 import com.design.service.BookService;
 import com.design.service.BorrowService;
 import com.design.service.StudentService;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import com.alibaba.fastjson.JSONObject;
+
 
 import java.util.Collections;
 import java.util.List;
@@ -24,7 +27,7 @@ public class BorrowController {
 
     @GetMapping
     public Result getAll(){
-        List<Object> borrowList = Collections.singletonList(borrowService.getAll());
+        List<Borrow> borrowList = borrowService.getAll();
         Integer code = borrowList!=null? Code.GET_OK:Code.GET_ERR;
         String msg = borrowList !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
         return new Result(code,borrowList,msg);
@@ -54,7 +57,6 @@ public class BorrowController {
         Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
         int exception = borrowList.size();
-
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Student",student);
 //        传递可借书籍数据
@@ -80,8 +82,29 @@ public class BorrowController {
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
     }
     @PutMapping("/{sno}/ret")
-    public Result StudentReturn(@RequestBody Borrow borrow){
-    return  null;
+    public Result StudentReturn(@RequestBody Borrow.BorrowNoReturn borrowNoReturn){
+        Boolean flag = borrowService.updateReturn(borrowNoReturn);
+        String msg = flag? "更新结果成功！":"更新结果失败！";
+        return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
+    }
+    @PutMapping("/{sno}/ret/list")
+    public Result StudentReturn(@RequestBody List<Borrow.BorrowNoReturn> borrowNoReturnList){
+        Boolean flag = borrowService.updateReturnList(borrowNoReturnList);
+        String msg = flag? "更新结果成功！":"更新结果失败！";
+        return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
+    }
+
+    @PutMapping("/{sno}/rebor")
+    public Result StudentReBorrow(@RequestBody Borrow.BorrowNoReturn borrowNoReturn){
+        Boolean flag = borrowService.reBorrowBook(borrowNoReturn);
+        String msg = flag? "更新结果成功！":"更新结果失败！";
+        return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
+    }
+    @PutMapping("/{sno}/rebor/list")
+    public Result StudentReBorrow(@RequestBody List<Borrow.BorrowNoReturn> borrowNoReturnList){
+        Boolean flag = borrowService.reBorrowBookList(borrowNoReturnList);
+        String msg = flag? "更新结果成功！":"更新结果失败！";
+        return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
 
 }

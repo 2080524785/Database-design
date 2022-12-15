@@ -25,6 +25,6 @@ public interface StudentDao {
     @Delete("delete from Stu_info where sno=#{sno}")
     public int deleteBySno(String sno);
 
-    @Select("SELECT * from Stu_info where name like '%#{str}%' or dep LIKE '%#{str}%' or pro LIKE '%#{str}%' or sno LIKE '%#{str}%';")
+    @Select("SELECT * from Stu_info where name like CONCAT('%',#{str},'%') or dep LIKE CONCAT('%',#{str},'%') or pro LIKE CONCAT('%',#{str},'%') or sno LIKE CONCAT('%',#{str},'%');")
     public List<Student> getFuzzySearch(String str);
 }
