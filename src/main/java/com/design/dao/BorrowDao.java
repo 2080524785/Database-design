@@ -15,16 +15,15 @@ public interface BorrowDao {
     @Select({" <script>" +
             " SELECT * FROM Book_info " +
             " <where> 1=1 " +
+            " <if test=\" SN !=null \" >  AND SN =#{SN}</if> " +
+            " <if test=\" id !=null \" >  AND id =#{id}</if> " +
             " <if test=\" sno !=null  \" >  AND sno =#{sno}</if> " +
-            " <if test=\" name !=null \" >  AND name =#{name}</if> " +
-            " <if test=\"  dep!=null \" >  AND dep =#{dep}</if> " +
-            " <if test=\"  pro!=null \" >  AND pro =#{pro}</if> " +
+            " <if test=\" borrow_time !=null \" >  AND borrow_time =#{borrow_time}</if> " +
+            " <if test=\"  return_time!=null \" >  AND return_time =#{return_time}</if> " +
             " </where>" +
-            " <if test=\"  pro!=null \" >  AND pro =#{pro}</if> " +
-            "order by tb_car.id ASC"+
             " </script>"
     })
-    public List<Borrow> getAll();
+    public List<Borrow> getAll(Borrow borrow);
 
     @Select("select * from Borrow where return_time=null;")
     public List<Borrow> getBorrow();

@@ -18,7 +18,7 @@ public class Book {
     public static class BookNum{
         private String name;
         private String pub;
-        private Timestamp time;
+        private Date time;
         private Integer num;
     }
 
@@ -37,7 +37,7 @@ public class Book {
         if(!query.isEmpty()){
             this.id=query.containsKey("id")? query.getInteger("id") :null;
             this.name=query.containsKey("name")? query.getString("name") :null;
-            this.time=query.containsKey("time")? (Date) query.get("time") :null;
+            this.time=query.containsKey("time")? (Date) query.get("time"+"-01-01") :null;
             this.pub=query.containsKey("pub")? query.getString("pub") :null;
             this.locate=query.containsKey("locate")? query.getString("locate") :null;
         }

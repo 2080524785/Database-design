@@ -22,8 +22,8 @@ public class StudentController {
     private StudentService studentService;
 
     // 展示全部书籍信息
-    @GetMapping("/page")
-    public Result getAll(@RequestBody Map<String, JSONObject> param) {
+    @PostMapping("/page")
+    public Result getAllParams(@RequestBody Map<String, JSONObject> param) {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
         PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"),sort.isEmpty()?"":sort.getString("orderProp")+" "+sort.getString("orderAsc"));
@@ -32,19 +32,19 @@ public class StudentController {
         Integer code = studentList !=null? Code.GET_OK:Code.GET_ERR;
         String msg = studentList !=null? "查询全部结果成功!":"查询结果失败！";
         JSONObject data = new JSONObject();
-        data.put("records",studentPageInfo.getList());
+        data.put("records",studentList);
         data.put("currentPage",studentPageInfo.getPageNum());
         data.put("pageSize",studentPageInfo.getPageSize());
         data.put("total",studentPageInfo.getTotal());
         return new Result(code,data,msg);
     }
     // 通过学号获取某学生信息
-    @GetMapping("/{sno}")
-    public Result getBySno(@PathVariable String sno) {
+    @GetMapping("/info")
+    public Result getBySno(@RequestParam("id") String sno) {
         Student student = studentService.getBySno(sno);
         Integer code = student !=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "存在该学生！":"不存在该学生！";
-        return new Result(code,student,msg);
+        return new Result(code,null,msg);
     }
 //    // 模糊搜索 学号 系别 专业 等信息
 //    @GetMapping("/search/{str}")
@@ -57,7 +57,7 @@ public class StudentController {
 
     // 单例保存一个学生类
     @PostMapping("/update")
-    public Result save(Student student) {
+    public Result save(@RequestBody Student student) {
         boolean flag = studentService.insertStudent(student);
         String msg = flag? "保存结果成功！":"保存结果失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
@@ -70,7 +70,7 @@ public class StudentController {
 //        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
 //    }
     // 传入学生信息，并进行修改
-    @PutMapping
+    @PostMapping
     public Result update(@RequestBody Student student) {
         boolean flag = studentService.updateStudent(student);
         String msg = flag? "更新结果成功！":"更新结果失败！";
@@ -84,8 +84,16 @@ public class StudentController {
 //        return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
 //    }
     // 按照学号列表删除学生
-    @DeleteMapping("/delete")
-    public Result delete(@RequestBody List<String> snoList) {
+    @PostMapping("/delete")
+    public Result delete(@RequestBody Map<String,String> param) {
+        String sno = param.get("sno");
+        boolean flag = studentService.deleteBySno(sno);
+        String msg = flag? "删除结果成功！":"删除结果失败！";
+        return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
+    }
+    @PostMapping("/deletelist")
+    public Result deleteList(@RequestBody Map<String,List<String>> param) {
+        List<String> snoList = param.get("snos");
         boolean flag = studentService.deleteBySnoList(snoList);
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);

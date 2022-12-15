@@ -16,8 +16,7 @@ public class BookServiceImpl implements BookService {
     private BookDao bookDao;
 
     public List<Book> getAll(JSONObject query) {
-        Book book = new Book(query);
-        return bookDao.getAll(book);
+        return bookDao.getAll(new Book(query));
     }
 
 

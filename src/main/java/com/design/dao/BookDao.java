@@ -5,23 +5,25 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 
 public interface BookDao {
 
-    @Select({" <script>" +
+    @Select(" <script>" +
             " SELECT * FROM Book_info " +
             " <where> 1=1 " +
             " <if test=\" id !=null  \" >  AND id LIKE concat('%',#{id},'%')</if> " +
             " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
-            " <if test=\"  time!=null \" >  AND time =#{time}</if> " +
+            " <if test=\"  time!=null \" >  AND YEAR(time) =#{time}</if> " +
             " <if test=\"  pub!=null \" >  AND pub LIKE concat('%',#{pub},'%')</if> " +
             " <if test=\"  locate!=null \" >  AND locate LIKE concat('%',#{locate},'%')</if> " +
             " </where>" +
             " </script>"
-    })
+    )
     public List<Book> getAll(Book book);
+
 
 
     @Select("select * from Book_info where id=#{id};")
