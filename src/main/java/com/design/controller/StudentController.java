@@ -43,7 +43,8 @@ public class StudentController {
 
     // 单例保存一个学生类
     @PostMapping
-    public Result save(@RequestBody Student student) {
+    public Result save(Student student) {
+        System.out.println("test"+student);
         boolean flag = studentService.insertStudent(student);
         String msg = flag? "保存结果成功！":"保存结果失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);

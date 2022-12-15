@@ -26,7 +26,7 @@ public interface BookDao {
     @Update("update Book_info set name = #{name}, time = #{time}, pub = #{pub}, locate=#{locate} where id = #{id}")
     public int updateBook(Book book);
 
-    @Select("SELECT * from Book_info where name like '%#{str}%' or pub LIKE '%#{str}%' or locate LIKE '%#{str}%' or id LIKE '%#{str}%' or time LIKE '%#{str}%';")
+    @Select("SELECT * from Book_info where name like CONCAT('%',#{str},'%') or pub LIKE CONCAT('%',#{str},'%') or locate LIKE CONCAT('%',#{str},'%') or id LIKE CONCAT('%',#{str},'%') or time LIKE CONCAT('%',#{str},'%');")
     public List<Book> getFuzzySearch(String str);
 
 

@@ -17,7 +17,7 @@ public class BookController {
     private BookService bookService;
 
     // 展示全部书籍信息
-    @GetMapping("/page")
+    @GetMapping("")
     public Result getAll(@PathVariable Map<String,String> data) {
         List<Book> bookList = bookService.getAll();
         Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
