@@ -36,10 +36,10 @@ public class Book {
     public Book(JSONObject query) {
         if(!query.isEmpty()){
             this.id=query.containsKey("id")? query.getInteger("id") :null;
-            this.name=query.containsKey("name")||query.getString("name")==""? query.getString("name") :null;
+            this.name=query.containsKey("name")&&query.getString("name")!=""? query.getString("name") :null;
             this.time=query.containsKey("time")? (Date) query.get("time"+"-01-01") :null;
-            this.pub=query.containsKey("pub")||query.getString("pub")==""? query.getString("pub") :null;
-            this.locate=query.containsKey("locate")||query.getString("locate")==""? query.getString("locate") :null;
+            this.pub=query.containsKey("pub")&&query.getString("pub")!=""? query.getString("pub") :null;
+            this.locate=query.containsKey("locate")&&query.getString("locate")!=""? query.getString("locate") :null;
         }
     }
 }

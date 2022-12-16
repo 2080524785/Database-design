@@ -13,7 +13,7 @@ import java.util.List;
 public interface BorrowDao {
 
     @Select({" <script>" +
-            " SELECT * FROM Book_info " +
+            " SELECT * FROM Borrow " +
             " <where> 1=1 " +
             " <if test=\" SN !=null \" >  AND SN =#{SN}</if> " +
             " <if test=\" id !=null \" >  AND id =#{id}</if> " +

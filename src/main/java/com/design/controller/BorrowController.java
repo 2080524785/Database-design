@@ -63,10 +63,10 @@ public class BorrowController {
         return new Result(code,borrowList,msg);
     }
 
-    @GetMapping("/stuInfo")
-    public Result getStudent(@RequestParam("sno") String sno){
-        Student student = studentService.getBySno(sno);
-        List<Borrow> borrowList = borrowService.getBySnoBorrowOverExcept(sno);
+    @PostMapping("/stuInfo")
+    public Result getStudent(@RequestBody Map<String,String> params){
+        Student student = studentService.getBySno(params.get("sno"));
+        List<Borrow> borrowList = borrowService.getBySnoBorrowOverExcept(params.get("sno"));
         List<Book> bookList = borrowService.getAllBookNoBorrow();
         Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "查询结果成功！":"查询结果失败，未找到该数据！";

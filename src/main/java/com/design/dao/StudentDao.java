@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Update;
 import java.util.List;
 
 public interface StudentDao {
-    @Select("select * from Stu_info where sno=#{sno}")
+    @Select("select * from Stu_info where sno=#{sno};")
     public Student getBySno(String Sno);
 
     @Select({" <script>" +
