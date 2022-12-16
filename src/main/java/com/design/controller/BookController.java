@@ -25,13 +25,16 @@ public class BookController {
     public Result getAll(@RequestBody Map<String, JSONObject> param) {
          JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-        PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"),sort.isEmpty()?"":sort.getString("orderProp")+" "+sort.getString("orderAsc"));
+        if(page.getInteger("offset")==0) {
+            PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"), sort.isEmpty() ? "" : sort.getString("orderProp") + " " + sort.getString("orderAsc"));
+        }else{
+            PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
+        }
         List<Book> bookList = bookService.getAll(param.get("query"));
         PageInfo<Book> bookPageInfo = new PageInfo<>(bookList);
         Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
         String msg = bookList !=null? "查询全部结果成功!":"查询结果失败！";
         JSONObject data = new JSONObject();
-        System.out.println(bookList);
         data.put("records",bookList);
         data.put("currentPage",bookPageInfo.getPageNum());
         data.put("pageSize",bookPageInfo.getPageSize());

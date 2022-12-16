@@ -32,7 +32,11 @@ public class BorrowController {
     public Result getAll(@RequestBody Map<String,JSONObject> param){
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-        PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"),sort.isEmpty()?"":sort.getString("orderProp")+" "+sort.getString("orderAsc"));
+        if(page.getInteger("offset")==0) {
+            PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"), sort.isEmpty() ? "" : sort.getString("orderProp") + " " + sort.getString("orderAsc"));
+        }else{
+            PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
+        }
         List<Borrow> borrowList = borrowService.getAll(param.get("query"));
         PageInfo<Borrow> borrowPageInfo = new PageInfo<>(borrowList);
         Integer code = borrowList!=null? Code.GET_OK:Code.GET_ERR;

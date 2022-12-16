@@ -38,10 +38,10 @@ public class Student {
 
     public Student(JSONObject query) {
         if(!query.isEmpty()){
-            this.sno=query.containsKey("sno")? query.getString("sno") :null;
-            this.name=query.containsKey("name")? query.getString("name") :null;
-            this.dep=query.containsKey("dep")? query.getString("dep") :null;
-            this.pro=query.containsKey("pro")? query.getString("pro") :null;
+            this.sno=query.containsKey("sno")||query.getString("sno")==""? query.getString("sno") :null;
+            this.name=query.containsKey("name")||query.getString("name")==""? query.getString("name") :null;
+            this.dep=query.containsKey("dep")||query.getString("dep")==""? query.getString("dep") :null;
+            this.pro=query.containsKey("pro")||query.getString("pro")==""? query.getString("pro") :null;
         }
     }
 }

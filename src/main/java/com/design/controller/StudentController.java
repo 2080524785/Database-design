@@ -26,7 +26,11 @@ public class StudentController {
     public Result getAllParams(@RequestBody Map<String, JSONObject> param) {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-        PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"),sort.isEmpty()?"":sort.getString("orderProp")+" "+sort.getString("orderAsc"));
+        if(page.getInteger("offset")==0) {
+            PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"), sort.isEmpty() ? "" : sort.getString("orderProp") + " " + sort.getString("orderAsc"));
+        }else{
+            PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
+        }
         List<Student> studentList = studentService.getAll(param.get("query"));
         PageInfo<Student> studentPageInfo = new PageInfo<>(studentList);
         Integer code = studentList !=null? Code.GET_OK:Code.GET_ERR;
