@@ -33,7 +33,7 @@ public interface BorrowDao {
     public List<Borrow> getReturn();
 
 
-    @Select("select * from Book_info where id not exists(select id from Borrow where return_time=null)")
+    @Select("select * from Book_info where id not in(select id from Borrow where return_time=null)")
     public List<Book> getAllBookNoBorrow();
 
     @Select("SELECT * from Borrow where Borrow.sno=#{sno} and return_time is NULL and DATEDIFF(CURRENT_DATE,convert(borrow_time,date))>(SELECT limit_day from Stu_info where Stu_info.sno=Borrow.sno);")
