@@ -72,7 +72,6 @@ public class BookController {
 //    按照ID列表删除书籍
     @PostMapping("/delete")
     public Result delete(@RequestParam("id")Integer id) {
-        System.out.println(id);
         boolean flag = bookService.deleteById(id);
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
