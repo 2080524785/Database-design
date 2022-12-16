@@ -5,10 +5,8 @@ import com.design.domain.Book;
 import com.design.domain.Code;
 import com.design.domain.Result;
 import com.design.service.BookService;
-
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -81,7 +79,7 @@ public class BookController {
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
     }
-    @PostMapping("/deletelist")
+    @PostMapping("/batchDelete")
     public Result deleteList(@RequestBody Map<String,List<Integer>> param) {
         List<Integer> idList = param.get("ids");
         boolean flag = bookService.deleteByIdList(idList);

@@ -42,9 +42,8 @@ public class StudentController {
     @GetMapping("/info")
     public Result getBySno(@RequestParam("id") String sno) {
         Student student = studentService.getBySno(sno);
-        Integer code = student !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = student !=null? "存在该学生！":"不存在该学生！";
-        return new Result(code,null,msg);
+        Boolean data = student != null;
+        return new Result(Code.GET_OK,data,"查询成功");
     }
 //    // 模糊搜索 学号 系别 专业 等信息
 //    @GetMapping("/search/{str}")
@@ -56,8 +55,8 @@ public class StudentController {
 //    }
 
     // 单例保存一个学生类
-    @PostMapping("/update")
-    public Result save(@RequestBody Student student) {
+    @PostMapping("/add")
+    public Result save(Student student) {
         boolean flag = studentService.insertStudent(student);
         String msg = flag? "保存结果成功！":"保存结果失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
@@ -70,7 +69,7 @@ public class StudentController {
 //        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
 //    }
     // 传入学生信息，并进行修改
-    @PostMapping
+    @PutMapping("/update")
     public Result update(@RequestBody Student student) {
         boolean flag = studentService.updateStudent(student);
         String msg = flag? "更新结果成功！":"更新结果失败！";
@@ -91,7 +90,7 @@ public class StudentController {
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
     }
-    @PostMapping("/deletelist")
+    @PostMapping("/batchDelete")
     public Result deleteList(@RequestBody Map<String,List<String>> param) {
         List<String> snoList = param.get("snos");
         boolean flag = studentService.deleteBySnoList(snoList);
