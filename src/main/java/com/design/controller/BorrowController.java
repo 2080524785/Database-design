@@ -69,7 +69,7 @@ public class BorrowController {
         List<Borrow> borrowList = borrowService.getBySnoBorrowOverExcept(sno);
         List<Book> bookList = borrowService.getAllBookNoBorrow();
         Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
-        String msg = student !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
+        String msg = student !=null? "查询结果成功！":"查询结果失败，没有该学生！";
         int exception = borrowList.size();
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("Student",student);
