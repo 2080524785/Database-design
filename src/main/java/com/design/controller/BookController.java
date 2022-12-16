@@ -23,12 +23,10 @@ public class BookController {
     // 展示全部书籍信息
     @PostMapping("/page")
     public Result getAll(@RequestBody Map<String, JSONObject> param) {
-        JSONObject page=param.get("page");
+         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-
         PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"),sort.isEmpty()?"":sort.getString("orderProp")+" "+sort.getString("orderAsc"));
         List<Book> bookList = bookService.getAll(param.get("query"));
-
         PageInfo<Book> bookPageInfo = new PageInfo<>(bookList);
         Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
         String msg = bookList !=null? "查询全部结果成功!":"查询结果失败！";

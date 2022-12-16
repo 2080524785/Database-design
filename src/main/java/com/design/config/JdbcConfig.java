@@ -1,6 +1,7 @@
 package com.design.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.ibatis.plugin.Interceptor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -34,4 +35,5 @@ public class JdbcConfig {
         ds.setDataSource(dataSource);
         return ds;
     }
+
 }

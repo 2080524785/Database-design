@@ -28,7 +28,7 @@ public class BorrowController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/page")
+    @PostMapping("/page")
     public Result getAll(@RequestBody Map<String,JSONObject> param){
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
