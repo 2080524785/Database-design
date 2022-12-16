@@ -60,7 +60,7 @@ public class Borrow {
         if(!query.isEmpty()){
             this.SN=query.containsKey("SN")? query.getInteger("SN") :null;
             this.id=query.containsKey("id")? query.getInteger("id") :null;
-            this.sno=query.containsKey("sno")? query.getString("sno") :null;
+            this.sno=query.containsKey("sno")||query.getString("sno")==""? query.getString("sno") :null;
             this.borrow_time=query.containsKey("borrow_time")? new Timestamp(query.getDate("borrow_time").getTime()) :null;
             this.return_time=query.containsKey("return_time")? new Timestamp(query.getDate("return_time").getTime()) :null;
         }
