@@ -23,13 +23,11 @@ public class BookController {
     // 展示全部书籍信息
     @PostMapping("/page")
     public Result getAll(@RequestBody Map<String, JSONObject> param) {
-         JSONObject page=param.get("page");
+        JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-        if(page.getInteger("offset")==0) {
-            PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"), sort.isEmpty() ? "" : sort.getString("orderProp") + " " + sort.getString("orderAsc"));
-        }else{
-            PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
-        }
+        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");
+        PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
+        PageHelper.orderBy(order);
         List<Book> bookList = bookService.getAll(param.get("query"));
         PageInfo<Book> bookPageInfo = new PageInfo<>(bookList);
         Integer code = bookList !=null? Code.GET_OK:Code.GET_ERR;
