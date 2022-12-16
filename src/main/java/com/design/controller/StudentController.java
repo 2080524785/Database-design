@@ -90,7 +90,7 @@ public class StudentController {
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
     }
-    @DeleteMapping("/deletelist")
+    @DeleteMapping("/batchDelete")
     public Result deleteList(@RequestBody Map<String,List<String>> param) {
         List<String> snoList = param.get("snos");
         boolean flag = studentService.deleteBySnoList(snoList);
