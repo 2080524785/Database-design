@@ -63,8 +63,8 @@ public class BorrowController {
         return new Result(code,borrowList,msg);
     }
 
-    @GetMapping("/{sno}")
-    public Result getStudent(@PathVariable String sno){
+    @GetMapping("/stuInfo")
+    public Result getStudent(@RequestParam("sno") String sno){
         Student student = studentService.getBySno(sno);
         List<Borrow> borrowList = borrowService.getBySnoBorrowOverExcept(sno);
         List<Book> bookList = borrowService.getAllBookNoBorrow();
