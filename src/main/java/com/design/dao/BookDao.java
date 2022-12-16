@@ -14,7 +14,7 @@ public interface BookDao {
     @Select(" <script>" +
             " SELECT * FROM Book_info " +
             " <where> 1=1 " +
-            " <if test=\" id !=null  \" >  AND id LIKE concat('%',#{id},'%')</if> " +
+            " <if test=\" id !=null  \" >  AND id = #{id}</if> " +
             " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
             " <if test=\"  time!=null \" >  AND YEAR(time) =#{time}</if> " +
             " <if test=\"  pub!=null \" >  AND pub LIKE concat('%',#{pub},'%')</if> " +

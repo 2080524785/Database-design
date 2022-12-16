@@ -16,9 +16,10 @@ public interface StudentDao {
     @Select({" <script>" +
             " SELECT * FROM Stu_info " +
             " <where> 1=1 " +
-            " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
-            " <if test=\"  dep!=null \" >  AND dep LIKE concat('%',#{dep},'%')</if> " +
-            " <if test=\"  pro!=null \" >  AND pro LIKE concat('%',#{pro},'%')</if> " +
+            " <if test=\" sno!=null \" >  AND sno = #{sno}</if> " +
+            " <if test=\" name!=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
+            " <if test=\" dep!=null \" >  AND dep LIKE concat('%',#{dep},'%')</if> " +
+            " <if test=\" pro!=null \" >  AND pro LIKE concat('%',#{pro},'%')</if> " +
             " </where>" +
             " </script>"
     })
