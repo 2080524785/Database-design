@@ -84,8 +84,7 @@ public class StudentController {
 //    }
     // 按照学号列表删除学生
     @PostMapping("/delete")
-    public Result delete(@RequestBody Map<String,String> param) {
-        String sno = param.get("sno");
+    public Result delete(@RequestParam String sno) {
         boolean flag = studentService.deleteBySno(sno);
         String msg = flag? "删除结果成功！":"删除结果失败！";
         return new Result(flag ? Code.DELETE_OK:Code.DELETE_ERR,null, msg);
