@@ -40,7 +40,7 @@ public class StudentController {
     }
     // 通过学号获取某学生信息
     @GetMapping("/info")
-    public Result getBySno(@RequestParam("id") String sno) {
+    public Result getBySno(@RequestParam("sno") String sno) {
         Student student = studentService.getBySno(sno);
         Boolean data = student != null;
         return new Result(Code.GET_OK,data,"查询成功");
@@ -56,7 +56,7 @@ public class StudentController {
 
     // 单例保存一个学生类
     @PostMapping("/add")
-    public Result save(Student student) {
+    public Result save(@RequestBody Student student) {
         boolean flag = studentService.insertStudent(student);
         String msg = flag? "保存结果成功！":"保存结果失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
@@ -69,7 +69,7 @@ public class StudentController {
 //        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
 //    }
     // 传入学生信息，并进行修改
-    @PutMapping("/update")
+    @PostMapping("/update")
     public Result update(@RequestBody Student student) {
         boolean flag = studentService.updateStudent(student);
         String msg = flag? "更新结果成功！":"更新结果失败！";
