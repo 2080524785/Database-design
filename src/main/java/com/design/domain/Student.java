@@ -17,6 +17,9 @@ public class Student {
     private int limit_num=5;
     private int limit_day=30;
 
+    public Student() {
+    }
+
     public Student(String sno, String name, String dep, String pro) {
         this.sno = sno;
         this.name = name;
