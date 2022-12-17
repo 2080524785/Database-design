@@ -40,18 +40,18 @@ public interface BorrowService {
     /**
      * 添加借出记录
      */
-    public Boolean insertBorrow(Book book,String sno);
-    public Boolean insertBorrowList(List<Book> book,String sno);
+    public Boolean insertBorrow(Integer id,String sno);
+
     /**
      * 归还书籍
      */
-    public Boolean updateReturn(Borrow.BorrowNoReturn borrowNoReturn);
-    public Boolean updateReturnList(List<Borrow.BorrowNoReturn> borrowNoReturn);
+    public Boolean updateReturn(Integer SN);
+    public Boolean updateReturnList(List<Integer> SNList);
     /**
      * 续借书籍
      */
     @Transactional
-    public Boolean reBorrowBook(Borrow.BorrowNoReturn borrowNoReturn);
+    public Boolean reBorrowBook(Integer SN);
     @Transactional
-    public Boolean reBorrowBookList(List<Borrow.BorrowNoReturn> borrowNoReturnList);
+    public Boolean reBorrowBookList(List<Integer> SNList);
 }

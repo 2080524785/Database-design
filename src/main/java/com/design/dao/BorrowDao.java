@@ -27,11 +27,13 @@ public interface BorrowDao {
 
     @Select("select * from Borrow where return_time=null;")
     public List<Borrow> getBorrow();
+    @Select("select * from Borrow where SN=#{SN};")
+    public Borrow getBySN(Integer SN);
     @Select("select SN,id,sno,borrow_time from Borrow where sno=#{sno} and return_time=null;")
     public List<Borrow.BorrowNoReturn> getBySnoBorrow(String sno);
     @Select("select * from Borrow where return_time!=null;")
     public List<Borrow> getReturn();
-    @Select("select Book_info.*,Borrow.borrow_time from Borrow,Book_info where return_time is null and Borrow.sno=#{sno} and Book_info.id=Borrow.id ORDER BY borrow_time ASC;")
+    @Select("select Borrow.SN,Book_info.*,Borrow.borrow_time from Borrow,Book_info where return_time is null and Borrow.sno=#{sno} and Book_info.id=Borrow.id ORDER BY borrow_time ASC;")
     public List<Book.BookBorrow> getBySnoNoReturn(String sno);
 
     @Select("select * from Book_info where id not in(select id from Borrow where return_time=null)")
@@ -40,8 +42,8 @@ public interface BorrowDao {
     @Select("SELECT * from Borrow where Borrow.sno=#{sno} and return_time is NULL and DATEDIFF(CURRENT_DATE,convert(borrow_time,date))>(SELECT limit_day from Stu_info where Stu_info.sno=Borrow.sno);")
     public List<Borrow> getBySnoBorrowOverExcept(String sno);
 
-    @Insert("insert into Borrow (id,sno,borrow_time) values(#{id},#{sno},#{borrow_time})")
-    public int insertBorrow(Borrow.BorrowNoReturn borrowNoReturn);
+    @Insert("insert into Borrow (id,sno,borrow_time) values(#{id},#{sno},CURRENT_TIMESTAMP())")
+    public int insertBorrow(Integer id,String sno);
 
     // 删除记录 基本不使用
     @Delete("delete from Borrow where SN=#{SN};")
@@ -49,8 +51,8 @@ public interface BorrowDao {
 
 
 
-    @Update("update Borrow set return_time=#{return_time}, fine=#{fine} where SN = #{SN}")
-    public int updateBorrow(Borrow borrow);
+    @Update("update Borrow set return_time=CURRENT_TIMESTAMP(), fine=#{fine} where SN = #{SN}")
+    public int updateBorrow(Integer SN,Integer fine);
 
     @Select("select * from Book_num")
     public List<Book.BookNum> getAllGroupByNamePub();

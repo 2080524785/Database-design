@@ -28,6 +28,11 @@ public interface StudentDao {
     @Update("update Stu_info set name=#{name}, dep=#{dep}, pro=#{pro} where sno=#{sno}")
     public int updateStudent(Student student);
 
+    @Update("update Stu_info set limit_day=limit_day-1 where sno=#{sno}")
+    public int updateStudentSubLimitDay(String sno);
+    @Update("update Stu_info set limit_day=limit_day-1 where sno=#{sno}")
+    public int updateStudentAddLimitDay(String sno);
+
     @Insert("insert into Stu_info (sno,name,dep,pro,limit_num,limit_day) values(#{sno}, #{name}, #{dep}, #{pro},'5','30')")
     public int insertStudent(Student student);
 
@@ -36,4 +41,6 @@ public interface StudentDao {
 
     @Select("SELECT * from Stu_info where name like CONCAT('%',#{str},'%') or dep LIKE CONCAT('%',#{str},'%') or pro LIKE CONCAT('%',#{str},'%') or sno LIKE CONCAT('%',#{str},'%');")
     public List<Student> getFuzzySearch(String str);
+
+
 }

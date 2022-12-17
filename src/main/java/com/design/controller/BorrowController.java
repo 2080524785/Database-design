@@ -66,51 +66,50 @@ public class BorrowController {
     @PostMapping("/stuInfo")
     public Result getStudent(@RequestBody Map<String,String> params){
         Student student = studentService.getBySno(params.get("sno"));
-        // 获得该学生 目前借阅书籍  id,name,time,pub,locate,borrow_time, 按照借出时间排序，升序
+        // 获得该学生 目前借阅书籍  SN,id,name,time,pub,locate,borrow_time, 按照借出时间排序，升序
         List<Book.BookBorrow> bookBorrowList= borrowService.getBySnoBorrow(params.get("sno"));
         Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "查询结果成功！":"查询结果失败，没有该学生！";
-
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("student",student);
         jsonObject.put("book",bookBorrowList);
         return new Result(code,jsonObject,msg);
     }
 
-    @PostMapping("/{sno}/bor/list")
-    public Result StudentBorrow(@RequestBody List<Book> bookList, @PathVariable String sno) {
-        Boolean flag = borrowService.insertBorrowList(bookList, sno);
-        String msg = flag? "保存结果成功！":"保存结果失败！";
+    // 学生借书
+    @PostMapping("/add")
+    public Result StudentBorrow(@RequestParam(value = "id") Integer id, @RequestParam(value = "sno") String sno) {
+        Boolean flag = borrowService.insertBorrow(id, sno);
+        String msg = flag? "借书成功！":"借书失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
     }
-    @PostMapping("/{sno}/bor")
-    public Result StudentBorrow(@RequestBody Book book, @PathVariable String sno) {
-        Boolean flag = borrowService.insertBorrow(book, sno);
-        String msg = flag? "保存结果成功！":"保存结果失败！";
-        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
-    }
-    @PostMapping("/{sno}/ret")
-    public Result StudentReturn(@RequestBody Borrow.BorrowNoReturn borrowNoReturn){
-        Boolean flag = borrowService.updateReturn(borrowNoReturn);
-        String msg = flag? "更新结果成功！":"更新结果失败！";
+
+    // 还书，相当于从列表中删除借书信息
+    @PostMapping("/delete")
+    public Result StudentReturn(@RequestParam(value = "SN") Integer SN){
+        Boolean flag = borrowService.updateReturn(SN);
+        String msg = flag? "还书成功！":"还书失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
-    @PostMapping("/{sno}/ret/list")
-    public Result StudentReturn(@RequestBody List<Borrow.BorrowNoReturn> borrowNoReturnList){
-        Boolean flag = borrowService.updateReturnList(borrowNoReturnList);
-        String msg = flag? "更新结果成功！":"更新结果失败！";
+    @PostMapping("/batchDelete")
+    public Result StudentReturn(@RequestBody Map<String,List<Integer>> params){
+        List<Integer> SNList = params.get("ids");
+        Boolean flag = borrowService.updateReturnList(SNList);
+        String msg = flag? "还书成功！":"还书失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
 
-    @PostMapping("/{sno}/rebor")
-    public Result StudentReBorrow(@RequestBody Borrow.BorrowNoReturn borrowNoReturn){
-        Boolean flag = borrowService.reBorrowBook(borrowNoReturn);
+    // 续借
+    @PostMapping("/rebor")
+    public Result StudentReBorrow(@RequestParam(value = "SN") Integer SN){
+        Boolean flag = borrowService.reBorrowBook(SN);
         String msg = flag? "更新结果成功！":"更新结果失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
-    @PostMapping("/{sno}/rebor/list")
-    public Result StudentReBorrow(@RequestBody List<Borrow.BorrowNoReturn> borrowNoReturnList){
-        Boolean flag = borrowService.reBorrowBookList(borrowNoReturnList);
+    @PostMapping("/batchRebor")
+    public Result StudentReBorrow(@RequestBody Map<String,List<Integer>> params){
+        List<Integer> SNList = params.get("ids");
+        Boolean flag = borrowService.reBorrowBookList(SNList);
         String msg = flag? "更新结果成功！":"更新结果失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }

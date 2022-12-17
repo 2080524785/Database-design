@@ -23,6 +23,7 @@ public class Book {
     }
     @Data
     public static class BookBorrow{
+        private Integer SN;
         private Integer id;
         private String name;
         private Date time;
