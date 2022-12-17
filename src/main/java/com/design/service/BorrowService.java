@@ -18,6 +18,7 @@ public interface BorrowService {
      * @return
      */
     public List<Borrow> getBorrow();
+    public List<Book.BookBorrow> getBySnoBorrow(String sno);
     /**
      * 获得所有归还图书借阅记录
      * @return

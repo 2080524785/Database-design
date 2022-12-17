@@ -66,20 +66,14 @@ public class BorrowController {
     @PostMapping("/stuInfo")
     public Result getStudent(@RequestBody Map<String,String> params){
         Student student = studentService.getBySno(params.get("sno"));
-        List<Borrow> borrowList = borrowService.getBySnoBorrowOverExcept(params.get("sno"));
-        List<Book> bookList = borrowService.getAllBookNoBorrow();
+        // 获得该学生 目前借阅书籍  id,name,time,pub,locate,borrow_time, 按照借出时间排序，升序
+        List<Book.BookBorrow> bookBorrowList= borrowService.getBySnoBorrow(params.get("sno"));
         Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "查询结果成功！":"查询结果失败，没有该学生！";
-        int exception = borrowList.size();
+
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("Student",student);
-//        传递可借书籍数据
-        jsonObject.put("book",bookList);
-        // 传递超期数据
-        jsonObject.put("OverExcept",exception);
-        if(exception>0){
-            jsonObject.put("OverExceptList",borrowList);
-        }
+        jsonObject.put("student",student);
+        jsonObject.put("book",bookBorrowList);
         return new Result(code,jsonObject,msg);
     }
 

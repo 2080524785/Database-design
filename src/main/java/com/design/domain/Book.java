@@ -21,6 +21,15 @@ public class Book {
         private Date time;
         private Integer num;
     }
+    @Data
+    public static class BookBorrow{
+        private Integer id;
+        private String name;
+        private Date time;
+        private String pub;
+        private String locate;
+        private Timestamp borrow_time;
+    }
 
     public Book(Integer id, String name, Date time, String pub, String locate) {
         this.id = id;

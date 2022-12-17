@@ -35,6 +35,11 @@ public class BorrowServiceImpl implements BorrowService {
     }
 
     @Override
+    public List<Book.BookBorrow> getBySnoBorrow(String sno) {
+        return borrowDao.getBySnoNoReturn(sno);
+    }
+
+    @Override
     public List<Borrow> getReturn() {
         return borrowDao.getReturn();
     }

@@ -16,8 +16,11 @@ public class InfoController {
     public Result BookInfo(@RequestBody Map<String, JSONObject> param){
         JSONObject sort = param.get("order");
         JSONObject page=param.get("page");
-        PageHelper.startPage(page.getInteger("offset"), page.getInteger("limit"),sort.isEmpty()?"":sort.getString("orderProp")+" "+sort.getString("orderAsc"));
-        return null;
+        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");
+        PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
+        PageHelper.orderBy(order);
 
+        return null;
     }
+
 }
