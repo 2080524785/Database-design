@@ -64,16 +64,25 @@ public class BorrowController {
     }
 
     @PostMapping("/stuInfo")
-    public Result getStudent(@RequestBody Map<String,String> params){
-        Student student = studentService.getBySno(params.get("sno"));
+    public Result getStudent(@RequestBody Map<String,JSONObject> param){
+        JSONObject page=param.get("page");
+        JSONObject sort=param.get("order");
+        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");
+        String sno = (String) param.get("query").get("sno");
+        Student student = studentService.getBySno(sno);
         // 获得该学生 目前借阅书籍  SN,id,name,time,pub,locate,borrow_time, 按照借出时间排序，升序
-        List<Book.BookBorrow> bookBorrowList= borrowService.getBySnoBorrow(params.get("sno"));
+        PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
+        PageHelper.orderBy(order);
+        List<Book.BookBorrow> bookBorrowList= borrowService.getBySnoBorrow(sno);
+        PageInfo<Book.BookBorrow> bookBorrowPageInfo = new PageInfo<>(bookBorrowList);
         Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "查询结果成功！":"查询结果失败，没有该学生！";
-        JSONObject jsonObject = new JSONObject();
-        jsonObject.put("student",student);
-        jsonObject.put("book",bookBorrowList);
-        return new Result(code,jsonObject,msg);
+        JSONObject data = new JSONObject();
+        data.put("records",bookBorrowList);
+        data.put("currentPage",bookBorrowPageInfo.getPageNum());
+        data.put("pageSize",bookBorrowPageInfo.getPageSize());
+        data.put("total",bookBorrowPageInfo.getTotal());
+        return new Result(code,data,msg);
     }
 
     // 学生借书
