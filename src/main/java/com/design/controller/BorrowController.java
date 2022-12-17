@@ -89,26 +89,26 @@ public class BorrowController {
         String msg = flag? "保存结果成功！":"保存结果失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
     }
-    @PutMapping("/{sno}/ret")
+    @PostMapping("/{sno}/ret")
     public Result StudentReturn(@RequestBody Borrow.BorrowNoReturn borrowNoReturn){
         Boolean flag = borrowService.updateReturn(borrowNoReturn);
         String msg = flag? "更新结果成功！":"更新结果失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
-    @PutMapping("/{sno}/ret/list")
+    @PostMapping("/{sno}/ret/list")
     public Result StudentReturn(@RequestBody List<Borrow.BorrowNoReturn> borrowNoReturnList){
         Boolean flag = borrowService.updateReturnList(borrowNoReturnList);
         String msg = flag? "更新结果成功！":"更新结果失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
 
-    @PutMapping("/{sno}/rebor")
+    @PostMapping("/{sno}/rebor")
     public Result StudentReBorrow(@RequestBody Borrow.BorrowNoReturn borrowNoReturn){
         Boolean flag = borrowService.reBorrowBook(borrowNoReturn);
         String msg = flag? "更新结果成功！":"更新结果失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
-    @PutMapping("/{sno}/rebor/list")
+    @PostMapping("/{sno}/rebor/list")
     public Result StudentReBorrow(@RequestBody List<Borrow.BorrowNoReturn> borrowNoReturnList){
         Boolean flag = borrowService.reBorrowBookList(borrowNoReturnList);
         String msg = flag? "更新结果成功！":"更新结果失败！";
