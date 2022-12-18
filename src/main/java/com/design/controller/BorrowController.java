@@ -75,14 +75,13 @@ public class BorrowController {
         PageHelper.orderBy(order);
         List<Book.BookBorrow> bookBorrowList= borrowService.getBySnoBorrow(sno);
         PageInfo<Book.BookBorrow> bookBorrowPageInfo = new PageInfo<>(bookBorrowList);
-        Integer code = student!=null? Code.GET_OK:Code.GET_ERR;
         String msg = student !=null? "查询结果成功！":"查询结果失败，没有该学生！";
         JSONObject data = new JSONObject();
         data.put("records",bookBorrowList);
         data.put("currentPage",bookBorrowPageInfo.getPageNum());
         data.put("pageSize",bookBorrowPageInfo.getPageSize());
         data.put("total",bookBorrowPageInfo.getTotal());
-        return new Result(code,data,msg);
+        return new Result(Code.GET_OK,data,msg);
     }
 
     // 学生借书
