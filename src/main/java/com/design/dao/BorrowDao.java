@@ -40,7 +40,7 @@ public interface BorrowDao {
     public List<Borrow> getBySnoBorrowOverExcept(String sno);
 
     @Insert("insert into Borrow (id,sno,borrow_time) values(#{id},#{sno},CURRENT_TIMESTAMP())")
-    public int insertBorrow(Integer id,String sno);
+    public int insertBorrow(@Param("id")Integer id,@Param("sno")String sno);
 
     // 删除记录 基本不使用
     @Delete("delete from Borrow where SN=#{SN};")
