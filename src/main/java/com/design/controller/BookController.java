@@ -49,7 +49,17 @@ public class BookController {
 //        return new Result(code,bookList,msg);
 //    }
 
-//    保存传递的书籍信息
+    // 在给某个学生借书时，输入书编号，返回书的信息， id name pub time locate is_Borrow
+    @PostMapping("/info")
+    public Result getBookInfo(@RequestParam(value="id") Integer id)
+    {
+        Book.BookBorrowInfo bookBorrowInfo = bookService.getInfoBySno(id);
+        boolean flag = bookBorrowInfo==null?false:true;
+        String msg = flag? "存在该书籍！":"不存在该书籍！";
+        return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,bookBorrowInfo, msg);
+    }
+
+//    保存传递的书籍信息,存放书籍
     @PostMapping("/add")
     public Result save(@RequestBody Book book) {
         boolean flag = bookService.insertBook(book);

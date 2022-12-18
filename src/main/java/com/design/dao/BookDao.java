@@ -27,6 +27,8 @@ public interface BookDao {
     @Select("select * from Book_info where id=#{id};")
     public Book getById(Integer id);
 
+    @Select("select Book_info.*,IF(EXISTS(SELECT * from Borrow where id=#{id} and return_time is NULL),TRUE,FALSE) is_Borrow from Book_info where id=#{id}")
+    public Book.BookBorrowInfo getInfoById(Integer id);
     @Delete("delete from Book_info where id=#{id};")
     public int deleteById(Integer id);
 

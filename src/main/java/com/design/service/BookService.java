@@ -13,7 +13,7 @@ public interface BookService {
      */
     public List<Book> getAll(JSONObject query);
 
-
+    public Book.BookBorrowInfo getInfoBySno(Integer id);
 
     /**
      * 提供Book数据后，执行添加到数据库

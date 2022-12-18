@@ -19,6 +19,11 @@ public class BookServiceImpl implements BookService {
         return bookDao.getAll(new Book(query));
     }
 
+    @Override
+    public Book.BookBorrowInfo getInfoBySno(Integer id) {
+        return bookDao.getInfoById(id);
+    }
+
 
     @Override
     public List<Book> getAllFuzzySearch(String str) {
