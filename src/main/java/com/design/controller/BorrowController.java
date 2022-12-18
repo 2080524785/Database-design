@@ -93,8 +93,9 @@ public class BorrowController {
 
     // 还书，相当于从列表中删除借书信息
     @PostMapping("/delete")
-    public Result StudentReturn(@RequestBody Map<String,Integer> params){
-        Boolean flag = borrowService.updateReturn(params.get("SN"));
+    public Result StudentReturn(@RequestParam("SN") Integer SN){
+//        System.out.printf(SN.toString());
+        Boolean flag = borrowService.updateReturn(SN);
         String msg = flag? "还书成功！":"还书失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
