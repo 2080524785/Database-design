@@ -33,7 +33,7 @@ public interface BorrowDao {
     public List<Borrow.BorrowNoReturn> getBySnoBorrow(String sno);
     @Select("select * from Borrow where return_time!=null;")
     public List<Borrow> getReturn();
-    @Select("select Borrow.SN,Book_info.*,Borrow.borrow_time from Borrow,Book_info where return_time is null and Borrow.sno=#{sno} and Book_info.id=Borrow.id ORDER BY borrow_time ASC;")
+    @Select("select Borrow.SN,Book_info.*,Borrow.borrow_time from Borrow,Book_info where return_time is null and Borrow.sno=#{sno} and Book_info.id=Borrow.id ORDER BY borrow_time ASC")
     public List<Book.BookBorrow> getBySnoNoReturn(String sno);
 
     @Select("select * from Book_info where id not in(select id from Borrow where return_time=null)")
