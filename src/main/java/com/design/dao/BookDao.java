@@ -24,8 +24,6 @@ public interface BookDao {
     )
     public List<Book> getAll(Book book);
 
-
-
     @Select("select * from Book_info where id=#{id};")
     public Book getById(Integer id);
 

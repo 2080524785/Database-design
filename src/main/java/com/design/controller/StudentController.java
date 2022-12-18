@@ -31,21 +31,18 @@ public class StudentController {
         PageHelper.orderBy(order);
         List<Student> studentList = studentService.getAll(param.get("query"));
         PageInfo<Student> studentPageInfo = new PageInfo<>(studentList);
-        Integer code = studentList !=null? Code.GET_OK:Code.GET_ERR;
-        String msg = studentList !=null? "查询全部结果成功!":"查询结果失败！";
         JSONObject data = new JSONObject();
         data.put("records",studentList);
         data.put("currentPage",studentPageInfo.getPageNum());
         data.put("pageSize",studentPageInfo.getPageSize());
         data.put("total",studentPageInfo.getTotal());
-        return new Result(code,data,msg);
+        return new Result(Code.GET_OK,data,"查询全部结果成功!");
     }
     // 通过学号获取某学生信息
     @GetMapping("/info")
     public Result getBySno(@RequestParam("sno") String sno) {
         Student student = studentService.getBySno(sno);
-        Boolean data = student != null;
-        return new Result(Code.GET_OK,data,"查询成功");
+        return new Result(Code.GET_OK,student,"查询结果成功！");
     }
 //    // 模糊搜索 学号 系别 专业 等信息
 //    @GetMapping("/search/{str}")
