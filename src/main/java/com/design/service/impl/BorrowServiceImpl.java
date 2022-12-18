@@ -85,7 +85,6 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public Boolean updateReturnList(List<Integer> SNList) {
-        List<Borrow> borrowList = new ArrayList<Borrow>();
         int sum=0;
         for(Integer SN:SNList){
             Borrow borrow = borrowDao.getBySN(SN);
@@ -99,7 +98,7 @@ public class BorrowServiceImpl implements BorrowService {
             }
             sum+=borrowDao.updateBorrow(SN, (int) fine);
         }
-        return sum==borrowList.size();
+        return sum==SNList.size();
     }
 
     @Override
@@ -121,7 +120,6 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public Boolean reBorrowBookList(List<Integer> SNList) {
-        List<Borrow> borrowList = new ArrayList<Borrow>();
         int sum=0;
         for(Integer SN:SNList){
             Borrow borrow = borrowDao.getBySN(SN);
@@ -138,7 +136,7 @@ public class BorrowServiceImpl implements BorrowService {
             flag += borrowDao.insertBorrow(borrow.getId(),borrow.getSno());
             if(flag==2) sum+=1;
         }
-        return sum==borrowList.size();
+        return sum==SNList.size();
     }
 
 
