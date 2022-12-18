@@ -3,10 +3,7 @@ package com.design.dao;
 import com.design.domain.Book;
 import com.design.domain.Borrow;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -52,7 +49,7 @@ public interface BorrowDao {
 
 
     @Update("update Borrow set return_time=CURRENT_TIMESTAMP(), fine=#{fine} where SN = #{SN}")
-    public int updateBorrow(Integer SN,Integer fine);
+    public int updateBorrow(@Param("SN")Integer SN, @Param("fine")Integer fine);
 
     @Select("select * from Book_num")
     public List<Book.BookNum> getAllGroupByNamePub();

@@ -21,8 +21,8 @@ public class InfoController {
     @Autowired
     private BorrowService borrowService;
     //
-    // 与BorrowController里getALL方法一样，只是在前端传参里  query{"name":"name","pub":"pub"}
-    // 获得某种书的借阅记录，返回该年的借阅情况
+    // 与BorrowController里getALL方法一样，只是在前端传参里  query{"name":"bookname","pub":"bookpub"} order{"orderProp":"borrow_time","orderAsc":"false"}
+    // 获得某种书(可以含有多本书)的借阅记录
     @PostMapping("/book/page")
     public Result BookInfo(@RequestBody Map<String, JSONObject> param){
         JSONObject page=param.get("page");
@@ -40,6 +40,11 @@ public class InfoController {
         data.put("pageSize",borrowPageInfo.getPageSize());
         data.put("total",borrowPageInfo.getTotal());
         return new Result(code,data,msg);
+    }
+    // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
+    @PostMapping("/book/data")
+    public Result BookInfoEveryDay(){
+        return null;
     }
 
 }

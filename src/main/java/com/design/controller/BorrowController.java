@@ -6,15 +6,12 @@ import com.design.service.BookService;
 import com.design.service.BorrowService;
 import com.design.service.StudentService;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -95,13 +92,13 @@ public class BorrowController {
 
     // 还书，相当于从列表中删除借书信息
     @PostMapping("/delete")
-    public Result StudentReturn(@RequestParam(value = "SN") Integer SN){
-        Boolean flag = borrowService.updateReturn(SN);
+    public Result StudentReturn(@RequestBody Map<String,Integer> params){
+        Boolean flag = borrowService.updateReturn(params.get("SN"));
         String msg = flag? "还书成功！":"还书失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
     @PostMapping("/batchDelete")
-    public Result StudentReturn(@RequestBody Map<String,List<Integer>> params){
+    public Result StudentReturnList(@RequestBody Map<String,List<Integer>> params){
         List<Integer> SNList = params.get("ids");
         Boolean flag = borrowService.updateReturnList(SNList);
         String msg = flag? "还书成功！":"还书失败！";

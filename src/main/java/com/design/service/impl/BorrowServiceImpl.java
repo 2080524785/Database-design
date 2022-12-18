@@ -71,7 +71,6 @@ public class BorrowServiceImpl implements BorrowService {
 
     @Override
     public Boolean updateReturn(Integer SN) {
-
         Borrow borrow = borrowDao.getBySN(SN);
         Student student = studentDao.getBySno(borrow.getSno());
         long day = ((new Date(System.currentTimeMillis())).getTime()-borrow.getBorrow_time().getTime())/(24*3600*1000)-student.getLimit_day();
