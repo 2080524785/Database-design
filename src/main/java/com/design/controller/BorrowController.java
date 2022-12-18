@@ -28,7 +28,7 @@ public class BorrowController {
     @Autowired
     private BookService bookService;
 
-    @PostMapping("/page")
+    @PostMapping("/pageInfo")
     public Result getAll(@RequestBody Map<String,JSONObject> param){
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
@@ -63,7 +63,7 @@ public class BorrowController {
         return new Result(code,borrowList,msg);
     }
 
-    @PostMapping("/stuInfo")
+    @PostMapping("/page")
     public Result getStudent(@RequestBody Map<String,JSONObject> param){
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
