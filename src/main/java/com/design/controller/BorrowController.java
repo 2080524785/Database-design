@@ -84,8 +84,9 @@ public class BorrowController {
 
     // 学生借书
     @PostMapping("/add")
-    public Result StudentBorrow(@RequestParam(value = "id") Integer id, @RequestParam(value = "sno") String sno) {
-        Boolean flag = borrowService.insertBorrow(id, sno);
+    public Result StudentBorrow(@RequestBody Borrow borrow) {
+//        System.out.printf(borrow.toString());
+        Boolean flag = borrowService.insertBorrow(borrow.getId(), borrow.getSno());
         String msg = flag? "借书成功！":"借书失败！";
         return new Result(flag ? Code.SAVE_OK:Code.SAVE_ERR,null, msg);
     }

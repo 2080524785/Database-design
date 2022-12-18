@@ -4,11 +4,13 @@ import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.sql.Date;
 
 @Getter
 @Setter
+@ToString
 public class Student {
     private String sno;
     private String name;
