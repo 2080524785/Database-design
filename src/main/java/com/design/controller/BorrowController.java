@@ -101,9 +101,8 @@ public class BorrowController {
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
     @PostMapping("/batchDelete")
-    public Result StudentReturn(@RequestBody Map<String,List<Integer>> params){
-        List<Integer> SNList = params.get("ids");
-        Boolean flag = borrowService.updateReturnList(SNList);
+    public Result StudentReturn(@RequestParam(value = "SNs") List<Integer> SNs){
+        Boolean flag = borrowService.updateReturnList(SNs);
         String msg = flag? "还书成功！":"还书失败！";
         return new Result(flag ? Code.UPDATE_OK:Code.UPDATE_ERR,null, msg);
     }
