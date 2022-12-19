@@ -13,6 +13,7 @@ public interface BorrowService {
      * @return
      */
     public List<Borrow> getAll(JSONObject query);
+    public List<Borrow.BorrowInfo> getAllInfo(JSONObject query);
     /**
      * 获得所有借出但并未归还图书借阅记录
      * @return

@@ -16,7 +16,6 @@ public class Student {
     private String name;
     private String dep;
     private String pro;
-    private int limit_num=5;
     private int limit_day=30;
 
     public Student() {
@@ -34,7 +33,6 @@ public class Student {
         this.name = name;
         this.dep = dep;
         this.pro = pro;
-        this.limit_num = limit_num;
         this.limit_day = limit_day;
     }
 

@@ -34,6 +34,26 @@ public class Borrow {
             this.borrow_time=new Timestamp(System.currentTimeMillis());
         }
     }
+    @Data
+    public static class BorrowInfo{
+        private Integer SN;
+        private Integer id;
+        private String sno;
+        private Timestamp borrow_time;
+        private Timestamp return_time;
+        private long fine;
+
+        private String bookname;
+        private Date time;
+        private String pub;
+        private String locate;
+
+
+        private String stuname;
+        private String dep;
+        private String pro;
+        private int limit_day=30;
+    }
     public Borrow(BorrowNoReturn borrowNoReturn){
         this.SN=borrowNoReturn.SN;
         this.id=borrowNoReturn.id;

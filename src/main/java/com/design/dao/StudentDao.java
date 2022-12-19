@@ -33,7 +33,7 @@ public interface StudentDao {
     @Update("update Stu_info set limit_day=limit_day-1 where sno=#{sno}")
     public int updateStudentAddLimitDay(String sno);
 
-    @Insert("insert into Stu_info (sno,name,dep,pro,limit_num,limit_day) values(#{sno}, #{name}, #{dep}, #{pro},'5','30')")
+    @Insert("insert into Stu_info (sno,name,dep,pro,limit_day) values(#{sno}, #{name}, #{dep}, #{pro},'30')")
     public int insertStudent(Student student);
 
     @Delete("delete from Stu_info where sno=#{sno}")

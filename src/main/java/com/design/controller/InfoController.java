@@ -6,20 +6,25 @@ import com.design.domain.Borrow;
 import com.design.domain.Code;
 import com.design.domain.Result;
 import com.design.service.BorrowService;
+import com.design.service.InfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/Info")
+@RequestMapping("/info")
 public class InfoController {
 
     @Autowired
     private BorrowService borrowService;
+    @Autowired
+    private InfoService infoService;
     //
     // 与BorrowController里getALL方法一样，只是在前端传参里  query{"name":"bookname","pub":"bookpub"} order{"orderProp":"borrow_time","orderAsc":"false"}
     // 获得某种书(可以含有多本书)的借阅记录
@@ -42,9 +47,18 @@ public class InfoController {
         return new Result(code,data,msg);
     }
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
+    // 获得所有书或者某中书的每日借书情况
     @PostMapping("/book/data")
-    public Result BookInfoEveryDay(){
-        return null;
+    public Result BookInfoEveryDay(@RequestBody JSONObject param) throws ParseException {
+        List<Map<String,Integer>> data;
+        if(param.isEmpty()){
+            data=infoService.getDataBorrow(null,null);
+        }else{
+            data=infoService.getDataBorrow(param.getString("name"),param.getString("pub"));
+        }
+        Integer code = data.size()==365? Code.GET_OK:Code.GET_ERR;
+        String msg = data.size()==365? "查询结果成功！":"查询结果失败！";
+        return new Result(code,data,msg);
     }
 
 }

@@ -30,6 +30,10 @@ public class BorrowServiceImpl implements BorrowService {
     public List<Borrow> getAll(JSONObject query) {
         return borrowDao.getAll(new Borrow(query));
     }
+    @Override
+    public List<Borrow.BorrowInfo> getAllInfo(JSONObject query) {
+        return borrowDao.getAllInfo(new Borrow(query));
+    }
 
     @Override
     public List<Borrow> getBorrow() {
