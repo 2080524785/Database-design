@@ -35,6 +35,36 @@ public interface InfoDao {
             "    ) AS obj,\n" +
             "    (SELECT @rownum := 0) r")
     public List<Info.BookRank> getYearRankBookBorrow();
+    @Select("SELECT\n" +
+            "    @rownum := @rownum + 1 AS rank,obj.name,obj.num\n" +
+            "FROM\n" +
+            "    (\n" +
+            "        SELECT\n" +
+            "            t.name,\n" +
+            "            t.num\n" +
+            "        FROM\n" +
+            "            (SELECT Book_info.name,count(*) num from Borrow,Book_info where DATE(borrow_time)>DATE_SUB(CURDATE(), INTERVAL 1 MONTH) and Book_info.id=Borrow.id GROUP BY Book_info.name,Book_info.pub\n" +
+            ",Book_info.time) t\n" +
+            "        ORDER BY\n" +
+            "            t.num DESC\n" +
+            "    ) AS obj,\n" +
+            "    (SELECT @rownum := 0) r")
+    public List<Info.BookRank> getMonthRankBookBorrow();
+    @Select("SELECT\n" +
+            "    @rownum := @rownum + 1 AS rank,obj.name,obj.num\n" +
+            "FROM\n" +
+            "    (\n" +
+            "        SELECT\n" +
+            "            t.name,\n" +
+            "            t.num\n" +
+            "        FROM\n" +
+            "            (SELECT Book_info.name,count(*) num from Borrow,Book_info where DATE(borrow_time)>DATE_SUB(CURDATE(), INTERVAL 1 WEEK) and Book_info.id=Borrow.id GROUP BY Book_info.name,Book_info.pub\n" +
+            ",Book_info.time) t\n" +
+            "        ORDER BY\n" +
+            "            t.num DESC\n" +
+            "    ) AS obj,\n" +
+            "    (SELECT @rownum := 0) r")
+    public List<Info.BookRank> getWeekRankBookBorrow();
 
     @Select("SELECT count(sno) from Stu_info ")
     public Integer getSumStu();

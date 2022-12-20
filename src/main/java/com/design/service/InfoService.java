@@ -11,6 +11,8 @@ public interface InfoService {
     public JSONObject getDataBookBorrow(String name, String pub) throws ParseException;
     public JSONObject getDataStuBorrow(String sno);
     public List<Info.BookRank> getRankBookBorrowOneYear();
+    public List<Info.BookRank> getRankBookBorrowOneMonth();
+    public List<Info.BookRank> getRankBookBorrowOneWeek();
 
     public Integer getSumStu();
     public Integer getSumBook();

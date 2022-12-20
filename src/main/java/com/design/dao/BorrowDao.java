@@ -11,7 +11,7 @@ public interface BorrowDao {
 
     @Select({" <script>" +
             " SELECT Borrow.*,Book_info.name bookname,Book_info.time,Book_info.pub,Book_info.locate,Stu_info.name stuname,Stu_info.dep,Stu_info.pro,Stu_info.limit_day FROM Borrow,Book_info,Stu_info" +
-            " <where> Borrow.id=Book_info.id AND Borrow.sno=Stu_info.sno " +
+            " <where> Borrow.id=Book_info.id AND Borrow.sno=Stu_info.sno AND Borrow.return_time is null" +
             " <if test=\" SN !=null \" >  AND SN =#{SN}</if> " +
             " <if test=\" id !=null \" >  AND id =#{id}</if> " +
             " <if test=\" sno !=null  \" >  AND sno =#{sno}</if> " +

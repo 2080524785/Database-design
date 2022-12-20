@@ -68,8 +68,19 @@ public class InfoServiceImpl implements InfoService {
         return data;
     }
 
+    @Override
     public List<Info.BookRank> getRankBookBorrowOneYear(){
         List<Info.BookRank> bookRankList = infoDao.getYearRankBookBorrow();
+        return bookRankList;
+    }
+    @Override
+    public List<Info.BookRank> getRankBookBorrowOneMonth(){
+        List<Info.BookRank> bookRankList = infoDao.getMonthRankBookBorrow();
+        return bookRankList;
+    }
+    @Override
+    public List<Info.BookRank> getRankBookBorrowOneWeek(){
+        List<Info.BookRank> bookRankList = infoDao.getWeekRankBookBorrow();
         return bookRankList;
     }
 

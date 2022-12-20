@@ -99,9 +99,27 @@ public class InfoController {
     }
 
     // 获得一年内图书借出量排名以及图书名字 借出量  rank name num
-    @GetMapping("/book/rank")
-    public Result BookBorrowInfoRank() {
+    @GetMapping("/book/year/rank")
+    public Result BookBorrowInfoYearRank() {
         List<Info.BookRank> bookRankList = infoService.getRankBookBorrowOneYear();
+        bookRankList=bookRankList.subList(0,5);
+        Integer code = bookRankList.size()==5? Code.GET_OK:Code.GET_ERR;
+        String msg = bookRankList.size()==5? "查询结果成功！":"查询结果失败！";
+        return new Result(code,bookRankList,msg);
+    }
+    // 获得一月内图书借出量排名以及图书名字 借出量  rank name num
+    @GetMapping("/book/month/rank")
+    public Result BookBorrowInfoMonthRank() {
+        List<Info.BookRank> bookRankList = infoService.getRankBookBorrowOneMonth();
+        bookRankList=bookRankList.subList(0,5);
+        Integer code = bookRankList.size()==5? Code.GET_OK:Code.GET_ERR;
+        String msg = bookRankList.size()==5? "查询结果成功！":"查询结果失败！";
+        return new Result(code,bookRankList,msg);
+    }
+    // 获得一周内图书借出量排名以及图书名字 借出量  rank name num
+    @GetMapping("/book/week/rank")
+    public Result BookBorrowInfoWeekRank() {
+        List<Info.BookRank> bookRankList = infoService.getRankBookBorrowOneWeek();
         bookRankList=bookRankList.subList(0,5);
         Integer code = bookRankList.size()==5? Code.GET_OK:Code.GET_ERR;
         String msg = bookRankList.size()==5? "查询结果成功！":"查询结果失败！";
