@@ -102,7 +102,7 @@ public class InfoController {
     // 获得图书借出量排名以及图书名字 借出量  rank name num
     @GetMapping("/book/rank")
     public Result BookBorrowInfoYearRank(@RequestParam(value="value") String parma) {
-        List<Info.BookRank> bookRankList=null;
+        List<Info> bookRankList=null;
         if(Objects.equals(parma, "year")){
             bookRankList = infoService.getRankBookBorrowOneYear();
         }else if(Objects.equals(parma, "month")){
@@ -112,10 +112,8 @@ public class InfoController {
         }else if(Objects.equals(parma, "day")){
             bookRankList = infoService.getRankBookBorrowOneDay();
         }
-        System.out.println(bookRankList);
-        bookRankList=bookRankList.subList(0,5);
-        Integer code = bookRankList==null? Code.GET_OK:Code.GET_ERR;
-        String msg = bookRankList==null? "查询结果成功！":"查询结果失败！";
+        Integer code = bookRankList!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = bookRankList!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,bookRankList,msg);
     }
 
@@ -123,40 +121,40 @@ public class InfoController {
     @GetMapping("/sum/stu")
     public Result SumStuInfo() {
         Integer num = infoService.getSumStu();
-        Integer code = num==null? Code.GET_OK:Code.GET_ERR;
-        String msg = num==null? "查询结果成功！":"查询结果失败！";
+        Integer code = num!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = num!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,num,msg);
     }
     // 获得书籍总数
     @GetMapping("/sum/book")
     public Result SumBookInfo() {
         Integer num = infoService.getSumBook();
-        Integer code = num==null? Code.GET_OK:Code.GET_ERR;
-        String msg = num==null? "查询结果成功！":"查询结果失败！";
+        Integer code = num!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = num!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,num,msg);
     }
     // 获得借阅记录总数
     @GetMapping("/sum/borrow")
     public Result SumBorrowInfo() {
         Integer num = infoService.getSumBorrow();
-        Integer code = num==null? Code.GET_OK:Code.GET_ERR;
-        String msg = num==null? "查询结果成功！":"查询结果失败！";
+        Integer code = num!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = num!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,num,msg);
     }
     // 获得累计罚金总数
     @GetMapping("/sum/fine")
     public Result SumFineInfo() {
         Integer num = infoService.getSumFine();
-        Integer code = num==null? Code.GET_OK:Code.GET_ERR;
-        String msg = num==null? "查询结果成功！":"查询结果失败！";
+        Integer code = num!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = num!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,num,msg);
     }
     // 获得今天罚金总数
     @GetMapping("/today/fine")
     public Result TodayFineInfo() {
         Integer num = infoService.getTodayFine();
-        Integer code = num==null? Code.GET_OK:Code.GET_ERR;
-        String msg = num==null? "查询结果成功！":"查询结果失败！";
+        Integer code = num!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = num!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,num,msg);
     }
 
