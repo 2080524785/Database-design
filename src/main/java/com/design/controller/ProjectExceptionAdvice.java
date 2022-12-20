@@ -4,7 +4,10 @@ import com.design.domain.Code;
 import com.design.domain.Result;
 
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+@RestControllerAdvice
 public class ProjectExceptionAdvice {
     @ExceptionHandler(Exception.class)
     public Result doException(Exception ex) {
