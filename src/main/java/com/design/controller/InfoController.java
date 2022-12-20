@@ -100,15 +100,15 @@ public class InfoController {
 
     // 获得图书借出量排名以及图书名字 借出量  rank name num
     @GetMapping("/book/rank")
-    public Result BookBorrowInfoYearRank(@RequestParam(value="value") String parma) {
-        List<Info.BookRank> bookRankList=null;
-        if(parma=="year"){
+    public Result BookBorrowInfoYearRank(@RequestParam(value="value") String value) {
+        List<Info> bookRankList=null;
+        if(value=="year"){
             bookRankList = infoService.getRankBookBorrowOneYear();
-        }else if(parma=="month"){
+        }else if( value=="month"){
             bookRankList = infoService.getRankBookBorrowOneMonth();
-        }else if(parma=="week"){
+        }else if( value=="week"){
             bookRankList = infoService.getRankBookBorrowOneWeek();
-        }else if(parma=="day"){
+        }else if( value=="day"){
             bookRankList = infoService.getRankBookBorrowOneDay();
         }
         bookRankList=bookRankList.subList(0,5);
