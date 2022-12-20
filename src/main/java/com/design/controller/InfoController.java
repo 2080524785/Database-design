@@ -111,7 +111,6 @@ public class InfoController {
         }else if( value=="day"){
             bookRankList = infoService.getRankBookBorrowOneDay();
         }
-        bookRankList=bookRankList.subList(0,5);
         Integer code = bookRankList==null? Code.GET_OK:Code.GET_ERR;
         String msg = bookRankList==null? "查询结果成功！":"查询结果失败！";
         return new Result(code,bookRankList,msg);
