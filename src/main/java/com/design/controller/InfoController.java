@@ -50,7 +50,7 @@ public class InfoController {
     // 获得所有书或者某中书的每日借书情况
     @PostMapping("/book/data")
     public Result BookInfoEveryDay(@RequestBody JSONObject param) throws ParseException {
-        List<Map<String,Integer>> data;
+        JSONObject data;
         if(param.isEmpty()){
             data=infoService.getDataBorrow(null,null);
         }else{
