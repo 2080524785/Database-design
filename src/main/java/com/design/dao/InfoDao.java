@@ -17,6 +17,8 @@ public interface InfoDao {
 
     @Select("SELECT t.date,coalesce(u.number,0) 'number' from(SELECT subdate(CURRENT_DATE, numlist.id) AS 'date' FROM (SELECT DISTINCT x.i + y.i * 10 + z.i * 100 AS id FROM num x,num y,num z ORDER BY id) AS numlist WHERE subdate(CURRENT_DATE, numlist.id) > date_sub(CURRENT_DATE,interval 1 year)) t LEFT JOIN (SELECT DATE(Borrow.borrow_time)as date,count(DISTINCT sno) number FROM Borrow GROUP BY DATE(Borrow.borrow_time)) u on t.date = u.date ORDER BY t.date")
     public List<Info> getAllStuDataBorrow();
+    @Select("SELECT t.date,coalesce(u.number,0) 'number' from(SELECT subdate(CURRENT_DATE, numlist.id) AS 'date' FROM (SELECT DISTINCT x.i + y.i * 10 + z.i * 100 AS id FROM num x,num y,num z ORDER BY id) AS numlist WHERE subdate(CURRENT_DATE, numlist.id) > date_sub(CURRENT_DATE,interval 1 year)) t LEFT JOIN (SELECT DATE(Borrow.borrow_time)as date,count(DISTINCT sno) number FROM Borrow WHERE sno=#{sno} GROUP BY DATE(Borrow.borrow_time)) u on t.date = u.date ORDER BY t.date")
+    public List<Info> getOneStuDataBorrow(String sno);
 
     @Select("SELECT\n" +
             "    @rownum := @rownum + 1 AS rank,obj.name,obj.num\n" +
@@ -32,6 +34,18 @@ public interface InfoDao {
             "            t.num DESC\n" +
             "    ) AS obj,\n" +
             "    (SELECT @rownum := 0) r")
-    public List<Info.BookRank> getRankBookBorrow();
+    public List<Info.BookRank> getYearRankBookBorrow();
+
+    @Select("SELECT count(sno) from Stu_info ")
+    public Integer getSumStu();
+    @Select("SELECT count(id) from Book_info ")
+    public Integer getSumBook();
+    @Select("SELECT count(SN) from Borrow ")
+    public Integer getSumBorrow();
+    @Select("SELECT sum(fine) from Borrow")
+    public Integer getSumFine();
+    @Select("SELECT sum(fine) from Borrow where DATE(borrow_time)=CURRENT_DATE")
+    public Integer getTodayFine();
+
 
 }

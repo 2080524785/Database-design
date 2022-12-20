@@ -18,7 +18,7 @@ public class InfoServiceImpl implements InfoService {
     private InfoDao infoDao;
 
     @Override
-    public JSONObject getDataBorrow(String name, String pub) throws ParseException {
+    public JSONObject getDataBookBorrow(String name, String pub) throws ParseException {
         SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date beginDate = new Date();
         Calendar d = Calendar.getInstance();
@@ -42,8 +42,60 @@ public class InfoServiceImpl implements InfoService {
         return data;
 
     }
+
+    @Override
+    public JSONObject getDataStuBorrow(String sno) {
+        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
+        Date beginDate = new Date();
+        Calendar d = Calendar.getInstance();
+        d.setTime(beginDate);
+        Boolean flag=sno==null?false:true;
+        List<Info> infoList;
+        if(!flag){
+            infoList = infoDao.getAllStuDataBorrow();
+        }else{
+            infoList = infoDao.getOneStuDataBorrow(sno);
+        }
+        List<String> date = new ArrayList<String>();
+        List<Integer> num = new ArrayList<Integer>();
+        for(Info info:infoList){
+            date.add(info.getDate());
+            num.add(info.getNumber());
+        }
+        JSONObject data=new JSONObject();
+        data.put("date",date);
+        data.put("num",num);
+        return data;
+    }
+
     public List<Info.BookRank> getRankBookBorrowOneYear(){
-        List<Info.BookRank> bookRankList = infoDao.getRankBookBorrow();
+        List<Info.BookRank> bookRankList = infoDao.getYearRankBookBorrow();
         return bookRankList;
     }
+
+    @Override
+    public Integer getSumStu() {
+        return infoDao.getSumStu();
+    }
+
+    @Override
+    public Integer getSumBook() {
+        return infoDao.getSumBook();
+    }
+
+    @Override
+    public Integer getSumBorrow() {
+        return infoDao.getSumBorrow();
+    }
+
+    @Override
+    public Integer getSumFine() {
+        return infoDao.getSumFine();
+    }
+
+    @Override
+    public Integer getTodayFine() {
+        return infoDao.getTodayFine();
+    }
+
 }
