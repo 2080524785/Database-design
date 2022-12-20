@@ -41,6 +41,4 @@ public interface BookDao {
     @Select("SELECT * from Book_info where name like CONCAT('%',#{str},'%') or pub LIKE CONCAT('%',#{str},'%') or locate LIKE CONCAT('%',#{str},'%') or id LIKE CONCAT('%',#{str},'%') or time LIKE CONCAT('%',#{str},'%');")
     public List<Book> getFuzzySearch(String str);
 
-
-
 }
