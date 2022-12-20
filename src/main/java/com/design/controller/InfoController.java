@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.design.domain.Borrow;
 import com.design.domain.Code;
+import com.design.domain.Info;
 import com.design.domain.Result;
 import com.design.service.BorrowService;
 import com.design.service.InfoService;
@@ -59,6 +60,16 @@ public class InfoController {
         Integer code = ((List<Integer>)data.get("num")).size()==365? Code.GET_OK:Code.GET_ERR;
         String msg = ((List<Integer>)data.get("num")).size()==365? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
+    }
+
+    // 获得一年内图书借出量排名以及图书名字 借出量  rank name num
+    @GetMapping("/book/rank")
+    public Result BookBorrowInfoRank() {
+        List<Info.BookRank> bookRankList = infoService.getRankBookBorrowOneYear();
+        bookRankList=bookRankList.subList(0,5);
+        Integer code = bookRankList.size()==5? Code.GET_OK:Code.GET_ERR;
+        String msg = bookRankList.size()==5? "查询结果成功！":"查询结果失败！";
+        return new Result(code,bookRankList,msg);
     }
 
 }

@@ -6,5 +6,11 @@ import lombok.Data;
 public class Info {
     String date;
     int number;
+    @Data
+    public static class BookRank{
+        Integer rank;
+        String name;
+        Integer num;
+    }
 
 }

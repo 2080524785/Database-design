@@ -10,4 +10,6 @@ import java.util.Map;
 public interface InfoService {
     public JSONObject getDataBorrow(String name, String pub) throws ParseException;
 
+    public List<Info.BookRank> getRankBookBorrowOneYear();
+
 }

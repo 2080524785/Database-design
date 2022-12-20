@@ -42,4 +42,8 @@ public class InfoServiceImpl implements InfoService {
         return data;
 
     }
+    public List<Info.BookRank> getRankBookBorrowOneYear(){
+        List<Info.BookRank> bookRankList = infoDao.getRankBookBorrow();
+        return bookRankList;
+    }
 }
