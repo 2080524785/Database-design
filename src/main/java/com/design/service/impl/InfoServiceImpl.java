@@ -83,6 +83,11 @@ public class InfoServiceImpl implements InfoService {
         List<Info.BookRank> bookRankList = infoDao.getWeekRankBookBorrow();
         return bookRankList;
     }
+    @Override
+    public List<Info.BookRank> getRankBookBorrowOneDay(){
+        List<Info.BookRank> bookRankList = infoDao.getDayRankBookBorrow();
+        return bookRankList;
+    }
 
     @Override
     public Integer getSumStu() {

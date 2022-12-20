@@ -13,6 +13,7 @@ public interface InfoService {
     public List<Info.BookRank> getRankBookBorrowOneYear();
     public List<Info.BookRank> getRankBookBorrowOneMonth();
     public List<Info.BookRank> getRankBookBorrowOneWeek();
+    public List<Info.BookRank> getRankBookBorrowOneDay();
 
     public Integer getSumStu();
     public Integer getSumBook();
