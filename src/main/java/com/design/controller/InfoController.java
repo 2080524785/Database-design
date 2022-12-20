@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/info")
@@ -100,15 +101,15 @@ public class InfoController {
 
     // 获得图书借出量排名以及图书名字 借出量  rank name num
     @GetMapping("/book/rank")
-    public Result BookBorrowInfoYearRank(@RequestParam(value="value") String value) {
-        List<Info> bookRankList=null;
-        if(value=="year"){
+    public Result BookBorrowInfoYearRank(@RequestParam(value="value") String parma) {
+        List<Info.BookRank> bookRankList=null;
+        if(Objects.equals(parma, "year")){
             bookRankList = infoService.getRankBookBorrowOneYear();
-        }else if( value=="month"){
+        }else if(Objects.equals(parma, "month")){
             bookRankList = infoService.getRankBookBorrowOneMonth();
-        }else if( value=="week"){
+        }else if(Objects.equals(parma, "week")){
             bookRankList = infoService.getRankBookBorrowOneWeek();
-        }else if( value=="day"){
+        }else if(Objects.equals(parma, "day")){
             bookRankList = infoService.getRankBookBorrowOneDay();
         }
         Integer code = bookRankList==null? Code.GET_OK:Code.GET_ERR;
