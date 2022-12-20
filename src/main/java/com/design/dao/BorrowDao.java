@@ -15,8 +15,8 @@ public interface BorrowDao {
             " <if test=\" SN !=null \" >  AND SN =#{SN}</if> " +
             " <if test=\" id !=null \" >  AND id =#{id}</if> " +
             " <if test=\" sno !=null  \" >  AND sno =#{sno}</if> " +
-            " <if test=\" borrow_time !=null \" >  AND DATE(Borrow.borrow_time) =#{borrow_time}</if> " +
-            " <if test=\" return_time!=null \" >  AND  DATE(Borrow.return_time) =#{return_time}</if> " +
+            " <if test=\" borrow_time !=null \" >  AND Borrow.borrow_time >=#{borrow_time}</if> " +
+            " <if test=\" return_time!=null \" >  AND  Borrow.return_time <=#{return_time}</if> " +
             " </where>" +
             " </script>"
     })
