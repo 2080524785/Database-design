@@ -56,8 +56,8 @@ public class InfoController {
         }else{
             data=infoService.getDataBorrow(param.getString("name"),param.getString("pub"));
         }
-        Integer code = data.size()==365? Code.GET_OK:Code.GET_ERR;
-        String msg = data.size()==365? "查询结果成功！":"查询结果失败！";
+        Integer code = ((List<Integer>)data.get("num")).size()==365? Code.GET_OK:Code.GET_ERR;
+        String msg = ((List<Integer>)data.get("num")).size()==365? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
     }
 

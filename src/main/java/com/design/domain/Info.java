@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class Info {
     String date;
-    Integer num;
+    int number;
 
 }

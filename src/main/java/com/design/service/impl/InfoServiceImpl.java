@@ -25,7 +25,7 @@ public class InfoServiceImpl implements InfoService {
         d.setTime(beginDate);
         Boolean flag=name==null&&pub==null?false:true;
         List<Info> infoList;
-        if(flag){
+        if(!flag){
             infoList = infoDao.getAllBookDataBorrow();
         }else{
             infoList = infoDao.getOneBookDataBorrow(name,pub);
@@ -34,7 +34,7 @@ public class InfoServiceImpl implements InfoService {
         List<Integer> num = new ArrayList<Integer>();
         for(Info info:infoList){
             date.add(info.getDate());
-            num.add(info.getNum());
+            num.add(info.getNumber());
         }
         JSONObject data=new JSONObject();
         data.put("date",date);
