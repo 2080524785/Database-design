@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.design.domain.Book;
 import org.apache.ibatis.session.RowBounds;
 
+import java.text.ParseException;
 import java.util.List;
 
 public interface BookService {
@@ -11,7 +12,7 @@ public interface BookService {
      * 查询所有书籍记录
      * @return
      */
-    public List<Book> getAll(JSONObject query);
+    public List<Book> getAll(JSONObject query) throws ParseException;
 
     public Book.BookBorrowInfo getInfoBySno(Integer id);
 

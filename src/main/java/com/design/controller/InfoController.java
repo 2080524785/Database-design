@@ -28,7 +28,7 @@ public class InfoController {
 
     //查询图书的数量信息，库存量等等
     @PostMapping("/book/num")
-    public Result getBookBorrowInfo(@RequestBody Map<String, JSONObject> param) {
+    public Result getBookBorrowInfo(@RequestBody Map<String, JSONObject> param) throws ParseException {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
         String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc") ?"asc":"desc");

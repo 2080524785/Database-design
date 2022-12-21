@@ -27,7 +27,7 @@ public interface InfoService {
      * @param
      * @return
      */
-    public List<Book.BookNum> getBookBorrowInfo(JSONObject query);
+    public List<Book.BookNum> getBookBorrowInfo(JSONObject query) throws ParseException;
     public List<Student.StudentInfo> getStuBorrowInfo(JSONObject query);
 
 

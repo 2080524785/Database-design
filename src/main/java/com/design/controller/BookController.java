@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +23,7 @@ public class BookController {
 
     // 展示全部书籍信息
     @PostMapping("/page")
-    public Result getAll(@RequestBody Map<String, JSONObject> param) {
+    public Result getAll(@RequestBody Map<String, JSONObject> param) throws ParseException {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
         String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");

@@ -3,8 +3,10 @@ package com.design.domain;
 import com.alibaba.fastjson.JSONObject;
 import lombok.Data;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 @Data
 public class Book {
@@ -38,10 +40,11 @@ public class Book {
             this.num=num;
         }
 
-        public BookNum(JSONObject query) {
+        public BookNum(JSONObject query) throws ParseException {
         if(!query.isEmpty()){
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             this.name=query.containsKey("name")&&query.getString("name")!=""? query.getString("name") :null;
-            this.time=query.containsKey("time")? (Date) query.get("time"+"-01-01") :null;
+            this.time=query.containsKey("time")? format.parse(query.get("time")+"-01-01") :null;
             this.pub=query.containsKey("pub")&&query.getString("pub")!=""? query.getString("pub") :null;
         }
     }
@@ -78,11 +81,12 @@ public class Book {
     public Book() {
     }
 
-    public Book(JSONObject query) {
+    public Book(JSONObject query) throws ParseException {
         if(!query.isEmpty()){
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             this.id=query.containsKey("id")? query.getInteger("id") :null;
             this.name=query.containsKey("name")&&query.getString("name")!=""? query.getString("name") :null;
-            this.time=query.containsKey("time")? (Date) query.get("time"+"-01-01") :null;
+            this.time=query.containsKey("time")? format.parse(query.get("time")+"-01-01") :null;
             this.pub=query.containsKey("pub")&&query.getString("pub")!=""? query.getString("pub") :null;
             this.locate=query.containsKey("locate")&&query.getString("locate")!=""? query.getString("locate") :null;
         }

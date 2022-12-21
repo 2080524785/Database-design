@@ -8,6 +8,7 @@ import com.design.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -15,7 +16,7 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookDao bookDao;
 
-    public List<Book> getAll(JSONObject query) {
+    public List<Book> getAll(JSONObject query) throws ParseException {
         return bookDao.getAll(new Book(query));
     }
 

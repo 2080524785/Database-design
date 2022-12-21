@@ -35,7 +35,7 @@ public class InfoServiceImpl implements InfoService {
 
     }
     @Override
-    public List<Book.BookNum> getBookBorrowInfo(JSONObject query) {
+    public List<Book.BookNum> getBookBorrowInfo(JSONObject query) throws ParseException {
         return infoDao.getBookBorrowInfo(new Book.BookNum(query));
     }
     @Override
