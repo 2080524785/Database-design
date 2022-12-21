@@ -27,7 +27,7 @@ public class InfoController {
 
 
     //查询图书的数量信息，库存量等等
-    @PostMapping("/book/num")
+    @PostMapping("/book/page")
     public Result getBookBorrowInfo(@RequestBody Map<String, JSONObject> param) throws ParseException {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
@@ -49,7 +49,7 @@ public class InfoController {
         return new Result(code,data,msg);
     }
     //查询学生的显示信息
-    @PostMapping("/stu/num")
+    @PostMapping("/stu/page")
     public Result getStuBorrowInfo(@RequestBody Map<String, JSONObject> param) {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
