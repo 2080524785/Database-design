@@ -25,10 +25,10 @@ public interface BorrowDao {
             " SELECT * FROM Borrow" +
             " <where> 1=1 " +
             " <if test=\" SN !=null \" >  AND SN =#{SN}</if> " +
-            " <if test=\" Borrow.id !=null \" >  AND Borrow.id =#{id}</if> " +
-            " <if test=\" Borrow.sno !=null  \" >  AND Borrow.sno =#{sno}</if> " +
-            " <if test=\" Borrow.borrow_time !=null \" >  AND DATE(Borrow.borrow_time) =#{borrow_time}</if> " +
-            " <if test=\" Borrow.return_time!=null \" >  AND  DATE(Borrow.return_time) =#{return_time}</if> " +
+            " <if test=\" id !=null \" >  AND id =#{id}</if> " +
+            " <if test=\" sno !=null  \" >  AND sno =#{sno}</if> " +
+            " <if test=\" borrow_time !=null \" >  AND DATE(borrow_time) =#{borrow_time}</if> " +
+            " <if test=\" return_time!=null \" >  AND  DATE(return_time) =#{return_time}</if> " +
             " </where>" +
             " </script>"
     })
