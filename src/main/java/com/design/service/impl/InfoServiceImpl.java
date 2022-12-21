@@ -22,7 +22,7 @@ public class InfoServiceImpl implements InfoService {
     public JSONObject getDataBookBorrow() throws ParseException {
         List<String> date = new ArrayList<String>();
         List<Integer> num = new ArrayList<Integer>();
-        List<Info> infoList = infoDao.getAllStuDataBorrow();
+        List<Info> infoList = infoDao.getAllBookDataBorrow();
         for(Info info:infoList){
             date.add(info.getDate());
             num.add(info.getNumber());
