@@ -95,14 +95,9 @@ public class InfoController {
     }
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
     // 获得所有书或者某中书的每日借书情况
-    @PostMapping("/book/data")
-    public Result BookBorrowInfoEveryDay(@RequestBody JSONObject param) throws ParseException {
-        JSONObject data;
-        if(param.isEmpty()){
-            data=infoService.getDataBookBorrow(null,null);
-        }else{
-            data=infoService.getDataBookBorrow(param.getString("name"),param.getString("pub"));
-        }
+    @GetMapping("/book/data")
+    public Result BookBorrowInfoEveryDay() throws ParseException {
+        JSONObject data=infoService.getDataBookBorrow();
         Integer code = data.get("num")!=null? Code.GET_OK:Code.GET_ERR;
         String msg = data.get("num")!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
@@ -111,12 +106,7 @@ public class InfoController {
     // 获得所有学生或者某个学生的每日借书情况
     @PostMapping("/stu/data")
     public Result StuBorrowInfoEveryDay(@RequestBody JSONObject param) throws ParseException {
-        JSONObject data;
-        if(param.isEmpty()){
-            data=infoService.getDataStuBorrow(null);
-        }else{
-            data=infoService.getDataStuBorrow(param.getString("sno"));
-        }
+        JSONObject data=infoService.getDataStuBorrow();
         Integer code = data.get("num")!=null? Code.GET_OK:Code.GET_ERR;
         String msg = data.get("num")!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);

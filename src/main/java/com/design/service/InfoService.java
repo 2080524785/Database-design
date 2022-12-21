@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface InfoService {
-    public JSONObject getDataBookBorrow(String name, String pub) throws ParseException;
-    public JSONObject getDataStuBorrow(String sno);
+    public JSONObject getDataBookBorrow() throws ParseException;
+    public JSONObject getDataStuBorrow();
     public List<Info.BookRank> getRankBookBorrowOneYear();
     public List<Info.BookRank> getRankBookBorrowOneMonth();
     public List<Info.BookRank> getRankBookBorrowOneWeek();

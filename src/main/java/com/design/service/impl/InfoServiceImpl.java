@@ -19,18 +19,12 @@ public class InfoServiceImpl implements InfoService {
     private InfoDao infoDao;
 
     @Override
-    public JSONObject getDataBookBorrow(String name, String pub) throws ParseException {
+    public JSONObject getDataBookBorrow() throws ParseException {
         SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date beginDate = new Date();
         Calendar d = Calendar.getInstance();
         d.setTime(beginDate);
-        Boolean flag=name==null&&pub==null?false:true;
-        List<Info> infoList;
-        if(!flag){
-            infoList = infoDao.getAllBookDataBorrow();
-        }else{
-            infoList = infoDao.getOneBookDataBorrow(name,pub);
-        }
+        List<Info> infoList = infoDao.getAllBookDataBorrow();
         List<String> date = new ArrayList<String>();
         List<Integer> num = new ArrayList<Integer>();
         for(Info info:infoList){
@@ -49,18 +43,13 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    public JSONObject getDataStuBorrow(String sno) {
+    public JSONObject getDataStuBorrow() {
         SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
         Date beginDate = new Date();
         Calendar d = Calendar.getInstance();
         d.setTime(beginDate);
-        Boolean flag=sno==null?false:true;
-        List<Info> infoList;
-        if(!flag){
-            infoList = infoDao.getAllStuDataBorrow();
-        }else{
-            infoList = infoDao.getOneStuDataBorrow(sno);
-        }
+
+        List<Info> infoList = infoDao.getAllStuDataBorrow();
         List<String> date = new ArrayList<String>();
         List<Integer> num = new ArrayList<Integer>();
         for(Info info:infoList){
