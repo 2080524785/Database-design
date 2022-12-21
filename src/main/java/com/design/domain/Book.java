@@ -43,9 +43,9 @@ public class Book {
         public BookNum(JSONObject query) throws ParseException {
         if(!query.isEmpty()){
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            this.name=query.containsKey("name")&&query.getString("name")!=""? query.getString("name") :null;
-            this.time=query.containsKey("time")? format.parse(query.get("time")+"-01-01") :null;
-            this.pub=query.containsKey("pub")&&query.getString("pub")!=""? query.getString("pub") :null;
+            this.name=query.containsKey("name")&&query.getString("name")!=""&&query.getString("name")!=null? query.getString("name") :null;
+            this.time=query.containsKey("time")&&query.get("time")!=""&&query.get("time")!=null? format.parse(query.get("time")+"-01-01") :null;
+            this.pub=query.containsKey("pub")&&query.getString("pub")!=""&&query.getString("pub")!=null? query.getString("pub") :null;
         }
     }
     }
@@ -85,10 +85,10 @@ public class Book {
         if(!query.isEmpty()){
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             this.id=query.containsKey("id")? query.getInteger("id") :null;
-            this.name=query.containsKey("name")&&query.getString("name")!=""? query.getString("name") :null;
-            this.time=query.containsKey("time")? format.parse(query.get("time")+"-01-01") :null;
-            this.pub=query.containsKey("pub")&&query.getString("pub")!=""? query.getString("pub") :null;
-            this.locate=query.containsKey("locate")&&query.getString("locate")!=""? query.getString("locate") :null;
+            this.name=query.containsKey("name")&&query.getString("name")!=""&&query.getString("name")!=null? query.getString("name") :null;
+            this.time=query.containsKey("time")&&query.get("time")!=""&&query.getString("time")!=null? format.parse(query.get("time")+"-01-01") :null;
+            this.pub=query.containsKey("pub")&&query.getString("pub")!=""&&query.getString("pub")!=null? query.getString("pub") :null;
+            this.locate=query.containsKey("locate")&&query.getString("locate")!=""&&query.getString("locate")!=null? query.getString("locate") :null;
         }
     }
 }
