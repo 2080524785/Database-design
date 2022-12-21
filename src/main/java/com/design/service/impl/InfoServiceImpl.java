@@ -19,21 +19,13 @@ public class InfoServiceImpl implements InfoService {
     private InfoDao infoDao;
 
     @Override
-    public JSONObject getDataBookBorrow() throws ParseException {
+    public List<Long[]> getDataBookBorrow() throws ParseException {
         SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
-        Date beginDate = new Date();
-        Calendar d = Calendar.getInstance();
-        d.setTime(beginDate);
-        List<Info> infoList = infoDao.getAllBookDataBorrow();
-        List<String> date = new ArrayList<String>();
-        List<Integer> num = new ArrayList<Integer>();
+        List<Long[]> data= new ArrayList<>();
+        List<Info> infoList = infoDao.getAllStuDataBorrow();
         for(Info info:infoList){
-            date.add(info.getDate());
-            num.add(info.getNumber());
+            data.add(new Long[]{dft.parse(info.getDate()).getTime(), Long.valueOf(info.getNumber())});
         }
-        JSONObject data=new JSONObject();
-        data.put("date",date);
-        data.put("num",num);
         return data;
 
     }
@@ -43,22 +35,13 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    public JSONObject getDataStuBorrow() {
+    public List<Long[]> getDataStuBorrow() throws ParseException {
         SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
-        Date beginDate = new Date();
-        Calendar d = Calendar.getInstance();
-        d.setTime(beginDate);
-
+        List<Long[]> data= new ArrayList<>();
         List<Info> infoList = infoDao.getAllStuDataBorrow();
-        List<String> date = new ArrayList<String>();
-        List<Integer> num = new ArrayList<Integer>();
         for(Info info:infoList){
-            date.add(info.getDate());
-            num.add(info.getNumber());
+            data.add(new Long[]{dft.parse(info.getDate()).getTime(), Long.valueOf(info.getNumber())});
         }
-        JSONObject data=new JSONObject();
-        data.put("date",date);
-        data.put("num",num);
         return data;
     }
 
