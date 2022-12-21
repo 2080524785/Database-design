@@ -104,7 +104,7 @@ public class InfoController {
     }
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
     // 获得所有学生或者某个学生的每日借书情况
-    @PostMapping("/stu/data")
+    @GetMapping("/stu/data")
     public Result StuBorrowInfoEveryDay(@RequestBody JSONObject param) throws ParseException {
         JSONObject data=infoService.getDataStuBorrow();
         Integer code = data.get("num")!=null? Code.GET_OK:Code.GET_ERR;
