@@ -24,38 +24,17 @@ public class InfoController {
     private BorrowService borrowService;
     @Autowired
     private InfoService infoService;
-    //
-    // 与BorrowController里getALL方法一样，只是在前端传参里  query{"name":"bookname","pub":"bookpub"} order{"orderProp":"borrow_time","orderAsc":"false"}
-    // 获得某种书(可以含有多本书)的借阅记录
-    @PostMapping("/book/page")
-    public Result BookInfo(@RequestBody Map<String, JSONObject> param){
-        JSONObject page=param.get("page");
-        JSONObject sort=param.get("order");
-        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc") ?"asc":"desc");
-        PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
-        PageHelper.orderBy(order);
-        List<Borrow> borrowList = borrowService.getAll(param.get("query"));
-        PageInfo<Borrow> borrowPageInfo = new PageInfo<>(borrowList);
-        Integer code = borrowList!=null? Code.GET_OK:Code.GET_ERR;
-        String msg = borrowList !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
-        JSONObject data = new JSONObject();
-        data.put("records",borrowPageInfo.getList());
-        data.put("currentPage",borrowPageInfo.getPageNum());
-        data.put("pageSize",borrowPageInfo.getPageSize());
-        data.put("total",borrowPageInfo.getTotal());
-        return new Result(code,data,msg);
-    }
 
 
     //查询图书的数量信息，库存量等等
     @PostMapping("/book/num")
-    public Result getBorrowInfo(@RequestBody Map<String, JSONObject> param) {
+    public Result getBookBorrowInfo(@RequestBody Map<String, JSONObject> param) {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
         String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc") ?"asc":"desc");
         PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
         PageHelper.orderBy(order);
-        List<Book.BookNum> bookNumList = infoService.getBorrowInfo(param.get("query"));
+        List<Book.BookNum> bookNumList = infoService.getBookBorrowInfo(param.get("query"));
         //  BookNum 类中包含  借出量 总借出量 库存量 总量
         PageInfo<Book.BookNum> borrowNumPageInfo = new PageInfo<>(bookNumList);
         Integer code = bookNumList!=null ? Code.GET_OK : Code.GET_ERR;
@@ -69,31 +48,31 @@ public class InfoController {
 
         return new Result(code,data,msg);
     }
-
-
-    //
-    // 在前端传参里  query{"sno":"sno"} order{"orderProp":"borrow_time","orderAsc":"false"}
-    // 获得某个学生或者全部学生的借阅记录(全部学生query:{})
-    @PostMapping("/stu/page")
-    public Result StuInfo(@RequestBody Map<String, JSONObject> param){
+    //查询学生的显示信息
+    @PostMapping("/stu/num")
+    public Result getStuBorrowInfo(@RequestBody Map<String, JSONObject> param) {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
         String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc") ?"asc":"desc");
         PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
         PageHelper.orderBy(order);
-        List<Borrow> borrowList = borrowService.getAll(param.get("query"));
-        PageInfo<Borrow> borrowPageInfo = new PageInfo<>(borrowList);
-        Integer code = borrowList!=null? Code.GET_OK:Code.GET_ERR;
-        String msg = borrowList !=null? "查询结果成功！":"查询结果失败，未找到该数据！";
+        List<Student.StudentInfo> studentInfoList = infoService.getStuBorrowInfo(param.get("query"));
+        //  BookNum 类中包含  借出量 总借出量 库存量 总量
+        PageInfo<Student.StudentInfo> borrowNumPageInfo = new PageInfo<>(studentInfoList);
+        Integer code = studentInfoList!=null ? Code.GET_OK : Code.GET_ERR;
+        String msg = studentInfoList!=null ? "查询结果成功" : "查询结果失败";
+
         JSONObject data = new JSONObject();
-        data.put("records",borrowPageInfo.getList());
-        data.put("currentPage",borrowPageInfo.getPageNum());
-        data.put("pageSize",borrowPageInfo.getPageSize());
-        //  这个总数可以表示学生结束总数
-        data.put("total",borrowPageInfo.getTotal());
-        System.out.println(data);
+        data.put("records",borrowNumPageInfo.getList());
+        data.put("currentPage",borrowNumPageInfo.getPageNum());
+        data.put("pageSize",borrowNumPageInfo.getPageSize());
+        data.put("total",borrowNumPageInfo.getTotal());
+
         return new Result(code,data,msg);
     }
+
+
+
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
     // 获得所有书或者某中书的每日借书情况
     @GetMapping("/book/data")

@@ -44,4 +44,13 @@ public class Student {
             this.pro=query.containsKey("pro")||query.getString("pro")==""? query.getString("pro") :null;
         }
     }
+    @Data
+    public static class StudentInfo{
+        String sno;
+        String name;
+        String dep;
+        String pro;
+        Integer sumnum;
+        Integer num;
+    }
 }

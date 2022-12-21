@@ -3,6 +3,7 @@ package com.design.service;
 import com.alibaba.fastjson.JSONObject;
 import com.design.domain.Book;
 import com.design.domain.Info;
+import com.design.domain.Student;
 
 import java.text.ParseException;
 import java.util.List;
@@ -26,7 +27,8 @@ public interface InfoService {
      * @param
      * @return
      */
-    public List<Book.BookNum> getBorrowInfo(JSONObject query);
+    public List<Book.BookNum> getBookBorrowInfo(JSONObject query);
+    public List<Student.StudentInfo> getStuBorrowInfo(JSONObject query);
 
 
 }

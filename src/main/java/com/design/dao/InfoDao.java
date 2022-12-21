@@ -2,6 +2,7 @@ package com.design.dao;
 
 import com.design.domain.Book;
 import com.design.domain.Info;
+import com.design.domain.Student;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -41,7 +42,7 @@ public interface InfoDao {
     public Integer getTodayFine();
 
     @Select(" <script>" +
-            " SELECT * FROM Borrow_num " +
+            " SELECT * FROM Borrow_book_num " +
             " <where> 1=1 " +
             " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
             " <if test=\"  pub!=null \" >  AND pub LIKE concat('%',#{pub},'%')</if> " +
@@ -49,7 +50,18 @@ public interface InfoDao {
             " </where>" +
             " </script>"
     )
-    public List<Book.BookNum> getBorrowInfo(Book.BookNum bookNum);
+    public List<Book.BookNum> getBookBorrowInfo(Book.BookNum bookNum);
+    @Select(" <script>" +
+            " SELECT Stu_info.sno,Stu_info.name,Stu_info.dep,Stu_info.pro,(SELECT count(*) from Borrow where Borrow.sno=Stu_info.sno) sumnum,(SELECT count(*) from Borrow where Borrow.sno=Stu_info.sno and return_time is null) num from Stu_info  " +
+            " <where> 1=1 " +
+            " <if test=\" sno !=null \" >  AND sno=#{sno}</if> " +
+            " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
+            " <if test=\" pro!=null \" >  AND pub LIKE concat('%',#{pro},'%')</if> " +
+            " <if test=\" dep!=null \" >  AND dep LIKE concat('%',#{dep},'%')</if> " +
+            " </where>" +
+            " </script>"
+    )
+    public List<Student.StudentInfo> getStuBorrowInfo(Student student);
 
 
 

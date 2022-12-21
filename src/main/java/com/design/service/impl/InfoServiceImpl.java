@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.design.dao.InfoDao;
 import com.design.domain.Book;
 import com.design.domain.Info;
+import com.design.domain.Student;
 import com.design.service.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,12 @@ public class InfoServiceImpl implements InfoService {
 
     }
     @Override
-    public List<Book.BookNum> getBorrowInfo(JSONObject query) {
-        return infoDao.getBorrowInfo(new Book.BookNum(query));
+    public List<Book.BookNum> getBookBorrowInfo(JSONObject query) {
+        return infoDao.getBookBorrowInfo(new Book.BookNum(query));
+    }
+    @Override
+    public List<Student.StudentInfo> getStuBorrowInfo(JSONObject query) {
+        return infoDao.getStuBorrowInfo(new Student(query));
     }
 
     @Override
