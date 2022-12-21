@@ -103,8 +103,8 @@ public class InfoController {
         }else{
             data=infoService.getDataBookBorrow(param.getString("name"),param.getString("pub"));
         }
-        Integer code = data.get("num")==null? Code.GET_OK:Code.GET_ERR;
-        String msg = data.get("num")==null? "查询结果成功！":"查询结果失败！";
+        Integer code = data.get("num")!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = data.get("num")!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
     }
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
@@ -117,8 +117,8 @@ public class InfoController {
         }else{
             data=infoService.getDataStuBorrow(param.getString("sno"));
         }
-        Integer code = data.get("num")==null? Code.GET_OK:Code.GET_ERR;
-        String msg = data.get("num")==null? "查询结果成功！":"查询结果失败！";
+        Integer code = data.get("num")!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = data.get("num")!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
     }
 
