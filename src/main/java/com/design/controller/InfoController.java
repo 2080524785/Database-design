@@ -1,13 +1,13 @@
 package com.design.controller;
 
-import com.alibaba.fastjson.JSON;
+
 import com.alibaba.fastjson.JSONObject;
 import com.design.domain.*;
 import com.design.service.BorrowService;
 import com.design.service.InfoService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,7 +31,7 @@ public class InfoController {
     public Result BookInfo(@RequestBody Map<String, JSONObject> param){
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");
+        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc") ?"asc":"desc");
         PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
         PageHelper.orderBy(order);
         List<Borrow> borrowList = borrowService.getAll(param.get("query"));
@@ -52,7 +52,7 @@ public class InfoController {
     public Result getBorrowInfo(@RequestBody Map<String, JSONObject> param) {
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");
+        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc") ?"asc":"desc");
         PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
         PageHelper.orderBy(order);
         List<Book.BookNum> bookNumList = infoService.getBorrowInfo(param.get("query"));
@@ -67,7 +67,7 @@ public class InfoController {
         data.put("pageSize",borrowNumPageInfo.getPageSize());
         data.put("total",borrowNumPageInfo.getTotal());
 
-        return new Result(code,bookNumList,msg);
+        return new Result(code,data,msg);
     }
 
 
@@ -78,7 +78,7 @@ public class InfoController {
     public Result StuInfo(@RequestBody Map<String, JSONObject> param){
         JSONObject page=param.get("page");
         JSONObject sort=param.get("order");
-        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");
+        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc") ?"asc":"desc");
         PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
         PageHelper.orderBy(order);
         List<Borrow> borrowList = borrowService.getAll(param.get("query"));
@@ -103,8 +103,8 @@ public class InfoController {
         }else{
             data=infoService.getDataBookBorrow(param.getString("name"),param.getString("pub"));
         }
-        Integer code = ((List<Integer>)data.get("num")).size()==365? Code.GET_OK:Code.GET_ERR;
-        String msg = ((List<Integer>)data.get("num")).size()==365? "查询结果成功！":"查询结果失败！";
+        Integer code = data.get("num")==null? Code.GET_OK:Code.GET_ERR;
+        String msg = data.get("num")==null? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
     }
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
@@ -117,8 +117,8 @@ public class InfoController {
         }else{
             data=infoService.getDataStuBorrow(param.getString("sno"));
         }
-        Integer code = ((List<Integer>)data.get("num")).size()==365? Code.GET_OK:Code.GET_ERR;
-        String msg = ((List<Integer>)data.get("num")).size()==365? "查询结果成功！":"查询结果失败！";
+        Integer code = data.get("num")==null? Code.GET_OK:Code.GET_ERR;
+        String msg = data.get("num")==null? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
     }
 
