@@ -43,10 +43,6 @@ public class Book {
             this.name=query.containsKey("name")&&query.getString("name")!=""? query.getString("name") :null;
             this.time=query.containsKey("time")? (Date) query.get("time"+"-01-01") :null;
             this.pub=query.containsKey("pub")&&query.getString("pub")!=""? query.getString("pub") :null;
-            this.nowBorrow=query.containsKey("nowBorrow")? query.getInteger("nowBorrow") :null;
-            this.allBorrow=query.containsKey("allBorrow")? query.getInteger("allBorrow") :null;
-            this.inventory=query.containsKey("inventory")? query.getInteger("inventory") :null;
-            this.num=query.containsKey("num")? query.getInteger("num") :null;
         }
     }
     }

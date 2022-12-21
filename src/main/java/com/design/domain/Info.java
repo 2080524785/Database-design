@@ -8,9 +8,9 @@ public class Info {
     int number;
     @Data
     public static class BookRank{
-        Integer rank;
         String name;
-        Integer num;
+        Integer number;
     }
+
 
 }

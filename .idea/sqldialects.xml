@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="SqlDialectMappings">
-    <file url="file://$APPLICATION_CONFIG_DIR$/consoles/db/70fa6df2-2ca4-40b3-8f28-54dfbd3072ee/console.sql" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/design/dao/BookDao.java" dialect="MySQL" />
     <file url="PROJECT" dialect="MySQL" />
   </component>

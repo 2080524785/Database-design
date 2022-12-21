@@ -3,6 +3,7 @@ package com.design.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.design.dao.InfoDao;
+import com.design.domain.Book;
 import com.design.domain.Info;
 import com.design.service.InfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class InfoServiceImpl implements InfoService {
         return data;
 
     }
+    @Override
+    public List<Book.BookNum> getBorrowInfo(JSONObject query) {
+        return infoDao.getBorrowInfo(new Book.BookNum(query));
+    }
 
     @Override
     public JSONObject getDataStuBorrow(String sno) {
@@ -69,19 +74,19 @@ public class InfoServiceImpl implements InfoService {
     }
 
     @Override
-    public List<Info> getRankBookBorrowOneYear(){
+    public List<Info.BookRank> getRankBookBorrowOneYear(){
         return infoDao.getYearRankBookBorrow();
     }
     @Override
-    public List<Info> getRankBookBorrowOneMonth(){
+    public List<Info.BookRank> getRankBookBorrowOneMonth(){
         return infoDao.getMonthRankBookBorrow();
     }
     @Override
-    public List<Info> getRankBookBorrowOneWeek(){
+    public List<Info.BookRank> getRankBookBorrowOneWeek(){
         return infoDao.getWeekRankBookBorrow();
     }
     @Override
-    public List<Info> getRankBookBorrowOneDay(){
+    public List<Info.BookRank> getRankBookBorrowOneDay(){
         return infoDao.getDayRankBookBorrow();
     }
 

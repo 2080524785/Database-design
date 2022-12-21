@@ -21,13 +21,13 @@ public interface InfoDao {
     public List<Info> getOneStuDataBorrow(String sno);
 
     @Select("SELECT  Book_info.name,count(*) number from Borrow,Book_info where DATE(borrow_time)>DATE_SUB(CURDATE(), INTERVAL 1 YEAR) and Book_info.id=Borrow.id GROUP BY Book_info.name,Book_info.pub,Book_info.time  ORDER BY number DESC limit 5")
-    public List<Info> getYearRankBookBorrow();
+    public List<Info.BookRank> getYearRankBookBorrow();
     @Select("SELECT  Book_info.name,count(*) number from Borrow,Book_info where DATE(borrow_time)>DATE_SUB(CURDATE(), INTERVAL 1 MONTH) and Book_info.id=Borrow.id GROUP BY Book_info.name,Book_info.pub,Book_info.time  ORDER BY number DESC limit 5")
-    public List<Info> getMonthRankBookBorrow();
+    public List<Info.BookRank> getMonthRankBookBorrow();
     @Select("SELECT  Book_info.name,count(*) number from Borrow,Book_info where DATE(borrow_time)>DATE_SUB(CURDATE(), INTERVAL 1 WEEK) and Book_info.id=Borrow.id GROUP BY Book_info.name,Book_info.pub,Book_info.time  ORDER BY number DESC limit 5")
-    public List<Info> getWeekRankBookBorrow();
+    public List<Info.BookRank> getWeekRankBookBorrow();
     @Select("SELECT  Book_info.name,count(*) number from Borrow,Book_info where DATE(borrow_time)=CURRENT_DATE and Book_info.id=Borrow.id GROUP BY Book_info.name,Book_info.pub,Book_info.time  ORDER BY number DESC limit 5")
-    public List<Info> getDayRankBookBorrow();
+    public List<Info.BookRank> getDayRankBookBorrow();
 
     @Select("SELECT count(sno) from Stu_info ")
     public Integer getSumStu();
@@ -39,6 +39,19 @@ public interface InfoDao {
     public Integer getSumFine();
     @Select("SELECT sum(fine) from Borrow where DATE(borrow_time)=CURRENT_DATE")
     public Integer getTodayFine();
+
+    @Select(" <script>" +
+            " SELECT * FROM Borrow_num " +
+            " <where> 1=1 " +
+            " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
+            " <if test=\"  pub!=null \" >  AND pub LIKE concat('%',#{pub},'%')</if> " +
+            " <if test=\"  time!=null \" >  AND YEAR(time) =#{time}</if> " +
+            " </where>" +
+            " </script>"
+    )
+    public List<Book.BookNum> getBorrowInfo(Book.BookNum bookNum);
+
+
 
 
 }

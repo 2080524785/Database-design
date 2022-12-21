@@ -2,10 +2,7 @@ package com.design.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.design.domain.Borrow;
-import com.design.domain.Code;
-import com.design.domain.Info;
-import com.design.domain.Result;
+import com.design.domain.*;
 import com.design.service.BorrowService;
 import com.design.service.InfoService;
 import com.github.pagehelper.PageHelper;
@@ -48,6 +45,32 @@ public class InfoController {
         data.put("total",borrowPageInfo.getTotal());
         return new Result(code,data,msg);
     }
+
+
+    //查询图书的数量信息，库存量等等
+    @PostMapping("/book/num")
+    public Result getBorrowInfo(@RequestBody Map<String, JSONObject> param) {
+        JSONObject page=param.get("page");
+        JSONObject sort=param.get("order");
+        String order = sort.isEmpty() ? "" : sort.getString("orderProp")+" "+(sort.getBoolean("orderAsc").booleanValue()?"asc":"desc");
+        PageHelper.offsetPage(page.getInteger("offset"), page.getInteger("limit"));
+        PageHelper.orderBy(order);
+        List<Book.BookNum> bookNumList = infoService.getBorrowInfo(param.get("query"));
+        //  BookNum 类中包含  借出量 总借出量 库存量 总量
+        PageInfo<Book.BookNum> borrowNumPageInfo = new PageInfo<>(bookNumList);
+        Integer code = bookNumList!=null ? Code.GET_OK : Code.GET_ERR;
+        String msg = bookNumList!=null ? "查询结果成功" : "查询结果失败";
+
+        JSONObject data = new JSONObject();
+        data.put("records",borrowNumPageInfo.getList());
+        data.put("currentPage",borrowNumPageInfo.getPageNum());
+        data.put("pageSize",borrowNumPageInfo.getPageSize());
+        data.put("total",borrowNumPageInfo.getTotal());
+
+        return new Result(code,bookNumList,msg);
+    }
+
+
     //
     // 在前端传参里  query{"sno":"sno"} order{"orderProp":"borrow_time","orderAsc":"false"}
     // 获得某个学生或者全部学生的借阅记录(全部学生query:{})
@@ -102,7 +125,7 @@ public class InfoController {
     // 获得图书借出量排名以及图书名字 借出量  rank name num
     @GetMapping("/book/rank")
     public Result BookBorrowInfoYearRank(@RequestParam(value="value") String parma) {
-        List<Info> bookRankList=null;
+        List<Info.BookRank> bookRankList=null;
         if(Objects.equals(parma, "year")){
             bookRankList = infoService.getRankBookBorrowOneYear();
         }else if(Objects.equals(parma, "month")){
