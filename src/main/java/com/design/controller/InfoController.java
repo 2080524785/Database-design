@@ -91,15 +91,16 @@ public class InfoController {
         data.put("pageSize",borrowPageInfo.getPageSize());
         //  这个总数可以表示学生结束总数
         data.put("total",borrowPageInfo.getTotal());
+        System.out.println(data);
         return new Result(code,data,msg);
     }
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理
     // 获得所有书或者某中书的每日借书情况
     @GetMapping("/book/data")
     public Result BookBorrowInfoEveryDay() throws ParseException {
-        List<Long[]> data=infoService.getDataBookBorrow();
-        Integer code = data!=null? Code.GET_OK:Code.GET_ERR;
-        String msg = data!=null? "查询结果成功！":"查询结果失败！";
+        JSONObject data=infoService.getDataBookBorrow();
+        Integer code = data.get("num")!=null? Code.GET_OK:Code.GET_ERR;
+        String msg = data.get("num")!=null? "查询结果成功！":"查询结果失败！";
         return new Result(code,data,msg);
     }
     // 获得一个长度为365的列表，对应着日期和数据，用作画图处理

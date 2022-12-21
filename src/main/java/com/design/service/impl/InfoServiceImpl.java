@@ -19,13 +19,17 @@ public class InfoServiceImpl implements InfoService {
     private InfoDao infoDao;
 
     @Override
-    public List<Long[]> getDataBookBorrow() throws ParseException {
-        SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
-        List<Long[]> data= new ArrayList<>();
+    public JSONObject getDataBookBorrow() throws ParseException {
+        List<String> date = new ArrayList<String>();
+        List<Integer> num = new ArrayList<Integer>();
         List<Info> infoList = infoDao.getAllStuDataBorrow();
         for(Info info:infoList){
-            data.add(new Long[]{dft.parse(info.getDate()).getTime(), Long.valueOf(info.getNumber())});
+            date.add(info.getDate());
+            num.add(info.getNumber());
         }
+        JSONObject data=new JSONObject();
+        data.put("date",date);
+        data.put("num",num);
         return data;
 
     }

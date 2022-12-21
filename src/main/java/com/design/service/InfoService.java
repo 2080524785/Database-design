@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface InfoService {
-    public List<Long[]> getDataBookBorrow() throws ParseException;
+    public JSONObject getDataBookBorrow() throws ParseException;
     public List<Long[]> getDataStuBorrow() throws ParseException;
     public List<Info.BookRank> getRankBookBorrowOneYear();
     public List<Info.BookRank> getRankBookBorrowOneMonth();
