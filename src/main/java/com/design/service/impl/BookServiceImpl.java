@@ -1,11 +1,14 @@
 package com.design.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.design.dao.BookDao;
 import com.design.domain.Book;
 import com.design.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -13,14 +16,16 @@ public class BookServiceImpl implements BookService {
     @Autowired
     private BookDao bookDao;
 
-    public List<Book> getAll() {
-        return bookDao.getAll();
+    public List<Book> getAll(JSONObject query) throws ParseException {
+        return bookDao.getAll(new Book(query));
     }
 
     @Override
-    public Book getById(Integer id) {
-        return bookDao.getById(id);
+    public Book.BookBorrowInfo getInfoBySno(Integer id) {
+        return bookDao.getInfoById(id);
     }
+
+
     @Override
     public List<Book> getAllFuzzySearch(String str) {
         return bookDao.getFuzzySearch(str);

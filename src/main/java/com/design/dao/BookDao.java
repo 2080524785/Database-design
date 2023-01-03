@@ -5,18 +5,30 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 import java.util.List;
 
 public interface BookDao {
 
-    @Select("select * from Book_info;")
-    public List<Book> getAll();
-
+    @Select(" <script>" +
+            " SELECT * FROM Book_info " +
+            " <where> 1=1 " +
+            " <if test=\" id !=null  \" >  AND id = #{id}</if> " +
+            " <if test=\" name !=null \" >  AND name LIKE concat('%',#{name},'%')</if> " +
+            " <if test=\"  time!=null \" >  AND YEAR(time) =#{time}</if> " +
+            " <if test=\"  pub!=null \" >  AND pub LIKE concat('%',#{pub},'%')</if> " +
+            " <if test=\"  locate!=null \" >  AND locate LIKE concat('%',#{locate},'%')</if> " +
+            " </where>" +
+            " </script>"
+    )
+    public List<Book> getAll(Book book);
 
     @Select("select * from Book_info where id=#{id};")
     public Book getById(Integer id);
 
+    @Select("select Book_info.*,IF(EXISTS(SELECT * from Borrow where id=#{id} and return_time is NULL),TRUE,FALSE) is_Borrow from Book_info where id=#{id}")
+    public Book.BookBorrowInfo getInfoById(Integer id);
     @Delete("delete from Book_info where id=#{id};")
     public int deleteById(Integer id);
 
@@ -26,9 +38,7 @@ public interface BookDao {
     @Update("update Book_info set name = #{name}, time = #{time}, pub = #{pub}, locate=#{locate} where id = #{id}")
     public int updateBook(Book book);
 
-    @Select("SELECT * from Book_info where name like '%#{str}%' or pub LIKE '%#{str}%' or locate LIKE '%#{str}%' or id LIKE '%#{str}%' or time LIKE '%#{str}%';")
+    @Select("SELECT * from Book_info where name like CONCAT('%',#{str},'%') or pub LIKE CONCAT('%',#{str},'%') or locate LIKE CONCAT('%',#{str},'%') or id LIKE CONCAT('%',#{str},'%') or time LIKE CONCAT('%',#{str},'%');")
     public List<Book> getFuzzySearch(String str);
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.design.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.design.dao.StudentDao;
 import com.design.dao.StudentDao;
 import com.design.domain.Book;
@@ -16,8 +17,9 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private StudentDao studentDao;
 
-    public List<Student> getAll() {
-        return studentDao.getAll();
+    public List<Student> getAll(JSONObject query) {
+        Student student = new Student(query);
+        return studentDao.getAll(student);
     }
 
     @Override
